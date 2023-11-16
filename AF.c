@@ -5,7 +5,7 @@
 #include "List.h"
 #include "Matrix.h"
 
-argumentInitTemp_t* SetUpInitialization(int firstArgument)
+argumentInitTemp_t* setUpInitialization(int firstArgument)
 {
 	argumentInitTemp_t* current = (argumentInitTemp_t*)malloc(sizeof(argumentInitTemp_t));
 
@@ -18,7 +18,7 @@ argumentInitTemp_t* SetUpInitialization(int firstArgument)
 	return current;
 }
 
-int AddArgument(argumentInitTemp_t* head, int argument) {
+int addArgument(argumentInitTemp_t* head, int argument) {
 	argumentInitTemp_t* current = head;
 	while (current->next != NULL) { // iterate to end of list
 		current = current->next;
@@ -37,15 +37,15 @@ int AddArgument(argumentInitTemp_t* head, int argument) {
 	return EXIT_SUCCESS;
 }
 
-int AddAttack(argumentInitTemp_t* head, int attacker, int victim) {
-	int retVal = UpdateAttacker(head, attacker, victim);
-	retVal = retVal || UpdateVictim(head, attacker, victim);
+int addAttack(argumentInitTemp_t* head, int attacker, int victim) {
+	int retVal = updateAttacker(head, attacker, victim);
+	retVal = retVal || updateVictim(head, attacker, victim);
 	return retVal;
 }
 
-static int UpdateVictim(argumentInitTemp_t* head, int attacker, int victim)
+static int updateVictim(argumentInitTemp_t* head, int attacker, int victim)
 {
-	argumentInitTemp_t* current = GoToArgument(head, victim);
+	argumentInitTemp_t* current = goToArgument(head, victim);
 
 	if (current->listAttackers == NULL) {
 		//initialize list of attackers
@@ -54,14 +54,14 @@ static int UpdateVictim(argumentInitTemp_t* head, int attacker, int victim)
 		current->listAttackers->number = attacker;
 	}
 	else {
-		Push(current->listAttackers, attacker);
+		push(current->listAttackers, attacker);
 	}
 	return EXIT_SUCCESS;
 }
 
-static int UpdateAttacker(argumentInitTemp_t* head, int attacker, int victim)
+static int updateAttacker(argumentInitTemp_t* head, int attacker, int victim)
 {
-	argumentInitTemp_t* current = GoToArgument(head, attacker);
+	argumentInitTemp_t* current = goToArgument(head, attacker);
 
 	if (current->listVictims == NULL) {
 		//initialize list of victims
@@ -70,12 +70,12 @@ static int UpdateAttacker(argumentInitTemp_t* head, int attacker, int victim)
 		current->listVictims->number = victim;
 	}
 	else {
-		Push(current->listVictims, victim);
+		push(current->listVictims, victim);
 	}
 	return EXIT_SUCCESS;
 }
 
-static argumentInitTemp_t* GoToArgument(argumentInitTemp_t* head, int argument)
+static argumentInitTemp_t* goToArgument(argumentInitTemp_t* head, int argument)
 {
 	argumentInitTemp_t* current = head;
 	while (current->number != argument) { // iterate to the argument
@@ -89,21 +89,21 @@ static argumentInitTemp_t* GoToArgument(argumentInitTemp_t* head, int argument)
 	return current;
 }
 
-argFramework_t* InitializeFramework(argumentInitTemp_t* head, uint32_t numberOfArguments)
+argFramework_t* initializeFramework(argumentInitTemp_t* head, uint32_t numberOfArguments)
 {
 	argFramework_t* framework = (argFramework_t*)malloc(sizeof(argFramework_t));
 	framework->number = numberOfArguments;
-	framework->attackers = InitializeAttackers(head, framework->number);
-	framework->victims = InitializeVictims(head, framework->number);
+	framework->attackers = initializeAttackers(head, framework->number);
+	framework->victims = initializeVictims(head, framework->number);
 
-	FreeInitializationMemory(head);
+	freeInitializationMemory(head);
 
 	return framework;
 }
 
-uint32_t** InitializeActives(uint32_t numberOfArguments)
+uint32_t** initializeActives(uint32_t numberOfArguments)
 {
-	uint32_t** actives = CreateMatrix(numberOfArguments, 2);
+	uint32_t** actives = createMatrix(numberOfArguments, 2);
 	for (int i = 1; i < numberOfArguments; i++) {
 		actives[i][0] = i -1;
 		if (i == numberOfArguments - 1) {
@@ -117,15 +117,15 @@ uint32_t** InitializeActives(uint32_t numberOfArguments)
 	return actives;
 }
 
-static uint32_t** InitializeAttackers(argumentInitTemp_t* head, uint32_t numberOfArguments)
+static uint32_t** initializeAttackers(argumentInitTemp_t* head, uint32_t numberOfArguments)
 {
 	argumentInitTemp_t* current = head;
-	uint32_t** matrix = CreateRows(numberOfArguments);
+	uint32_t** matrix = createRows(numberOfArguments);
 
 	for (int i = 0; i < numberOfArguments; i++)
 	{
-		int numArgs = CountList(current->listAttackers);
-		matrix[i] = CreateOneRow(numArgs);
+		int numArgs = countList(current->listAttackers);
+		matrix[i] = createOneRow(numArgs);
 		nodeInt_t* currentAttacker = current->listAttackers;
 		for (int j = 0; j < numArgs; j++)
 		{
@@ -140,14 +140,14 @@ static uint32_t** InitializeAttackers(argumentInitTemp_t* head, uint32_t numberO
 	return matrix;
 }
 
-static uint32_t** InitializeVictims(argumentInitTemp_t* head, uint32_t numberOfArguments) {
+static uint32_t** initializeVictims(argumentInitTemp_t* head, uint32_t numberOfArguments) {
 	argumentInitTemp_t* current = head;
-	uint32_t** matrix = CreateRows(numberOfArguments);
+	uint32_t** matrix = createRows(numberOfArguments);
 
 	for (int i = 0; i < numberOfArguments; i++)
 	{
-		int numArgs = CountList(current->listVictims);
-		matrix[i] = CreateOneRow(numArgs);
+		int numArgs = countList(current->listVictims);
+		matrix[i] = createOneRow(numArgs);
 		nodeInt_t* currentVictim = current->listVictims;
 		for (int j = 0; j < numArgs; j++)
 		{
@@ -162,45 +162,45 @@ static uint32_t** InitializeVictims(argumentInitTemp_t* head, uint32_t numberOfA
 	return matrix;
 }
 
-static int FreeInitializationMemory(argumentInitTemp_t* head)
+static int freeInitializationMemory(argumentInitTemp_t* head)
 {
 	argumentInitTemp_t* current = head;
 	argumentInitTemp_t* next = current->next;
 
 	while (next != NULL)
 	{
-		FreeContent(current);
+		freeContent(current);
 		free(current);
 		current = next;
 		next = current->next;
 	}
-	FreeContent(current);
+	freeContent(current);
 	free(current);
 
 	return EXIT_SUCCESS;
 }
 
-static int FreeContent(argumentInitTemp_t* argument)
+static int freeContent(argumentInitTemp_t* argument)
 {
-	int retVal = FreeList(argument->listAttackers);
-	retVal = retVal || FreeList(argument->listVictims);
+	int retVal = freeList(argument->listAttackers);
+	retVal = retVal || freeList(argument->listVictims);
 }
 
-uint32_t** GetReduct(argFramework_t* framework, uint32_t** activeArguments, uint32_t argument)
+uint32_t** getReduct(argFramework_t* framework, uint32_t** activeArguments, uint32_t argument)
 {
-	uint32_t** newActives = CopyMatrix(activeArguments);
-	DeactivateArgument(newActives, argument);
+	uint32_t** newActives = copyMatrix(activeArguments);
+	deactivateArgument(newActives, argument);
 
 	uint32_t* victims = framework->victims[argument];
 	for (int i = 0; i < _countof(victims); i++)
 	{
-		DeactivateArgument(newActives, victims[i]);
+		deactivateArgument(newActives, victims[i]);
 	}
 
 	return newActives;
 }
 
-static int DeactivateArgument(uint32_t** activeArguments, uint32_t argument)
+static int deactivateArgument(uint32_t** activeArguments, uint32_t argument)
 {
 	activeArguments[activeArguments[argument][0]][1] = activeArguments[argument][1];
 	activeArguments[activeArguments[argument][1]][0] = activeArguments[argument][0];

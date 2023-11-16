@@ -19,11 +19,11 @@ typedef struct {
     argumentInitTemp_t* next;
 } argumentInitTemp_t;
 
-argumentInitTemp_t* SetUpInitialization(int firstArgument);
-int AddArgument(argumentInitTemp_t* head, int argument);
-int AddAttack(argumentInitTemp_t* head, int attacker, int victim);
+argumentInitTemp_t* setUpInitialization(int firstArgument);
+int addArgument(argumentInitTemp_t* head, int argument);
+int addAttack(argumentInitTemp_t* head, int attacker, int victim);
 
-uint32_t** InitializeActives(uint32_t numberOfArguments);
-argFramework_t* InitializeFramework(argumentInitTemp_t* head, uint32_t numberOfArguments);
+uint32_t** initializeActives(uint32_t numberOfArguments);
+argFramework_t* initializeFramework(argumentInitTemp_t* head, uint32_t numberOfArguments);
 
-uint32_t** GetReduct(argFramework_t* framework, uint32_t** activeArguments, uint32_t argument); //returns the matix framework.actives for the reducted framework
+uint32_t** getReduct(argFramework_t* framework, uint32_t** activeArguments, uint32_t argument); //returns the matix framework.actives for the reducted framework

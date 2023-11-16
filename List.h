@@ -6,6 +6,6 @@ typedef struct {
     struct node_t * next;
 } nodeInt_t;
 
-int CountList(nodeInt_t* head);
-int FreeList(nodeInt_t* head);
-int Push(nodeInt_t* head, uint32_t number);
+int countList(nodeInt_t* head);
+int freeList(nodeInt_t* head);
+int push(nodeInt_t* head, uint32_t number);
