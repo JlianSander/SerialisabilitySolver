@@ -19,11 +19,15 @@ typedef struct {
     argumentInitTemp_t* next;
 } argumentInitTemp_t;
 
-argumentInitTemp_t* setUpInitialization(int firstArgument);
-int addArgument(argumentInitTemp_t* head, int argument);
-int addAttack(argumentInitTemp_t* head, int attacker, int victim);
+argumentInitTemp_t* setUpInitialization( uint32_t firstArgument);
+ uint32_t addArgument(argumentInitTemp_t* head,  uint32_t argument);
+ uint32_t addAttack(argumentInitTemp_t* head,  uint32_t attacker,  uint32_t victim);
 
 uint32_t** initializeActives(uint32_t numberOfArguments);
 argFramework_t* initializeFramework(argumentInitTemp_t* head, uint32_t numberOfArguments);
 
 uint32_t** getReduct(argFramework_t* framework, uint32_t** activeArguments, uint32_t argument); //returns the matix framework.actives for the reducted framework
+uint32_t getNext(uint32_t** activeArguments, uint32_t argument); // returns the active argument, which is located before the one specified
+uint32_t getPredecessor(uint32_t** activeArguments, uint32_t argument); // returns the next active argument after the one specified
+
+ uint32_t isActive(uint32_t** activeArguments, uint32_t argument); // returns 1 iff specified argument is active; returns 0 otherwise

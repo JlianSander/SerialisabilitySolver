@@ -2,10 +2,10 @@
 #include <stdlib.h>
 #include "List.h"
 
-int countList(nodeInt_t* head)
+ uint32_t countList(nodeInt_t* head)
 {
     nodeInt_t* current = head;
-    int count = 1;
+     uint32_t count = 1;
     while (current->next != NULL) { // iterate to end of list
         current = current->next;
         count++;
@@ -14,7 +14,7 @@ int countList(nodeInt_t* head)
     return count;
 }
 
-int freeList(nodeInt_t* head)
+ uint32_t freeList(nodeInt_t* head)
 {
     nodeInt_t* current = head;
     nodeInt_t* next = current->next;
@@ -30,7 +30,7 @@ int freeList(nodeInt_t* head)
     return EXIT_SUCCESS;
 }
 
-int push(nodeInt_t* head, uint32_t number) {
+ uint32_t push(nodeInt_t* head, uint32_t number) {
     nodeInt_t * current = head;
     while (current -> next != NULL) { // iterate to end of list
         current = current -> next;
