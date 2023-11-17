@@ -95,13 +95,13 @@ argFramework_t* initializeFramework(argumentInitTemp_t* head, uint32_t numberOfA
 	framework->number = numberOfArguments;
 	framework->attackers = initializeAttackers(head, framework->number);
 	framework->victims = initializeVictims(head, framework->number);
-
+	framework->actives = initializeActives(numberOfArguments);
 	freeInitializationMemory(head);
 
 	return framework;
 }
 
-uint32_t** initializeActives(uint32_t numberOfArguments)
+static uint32_t** initializeActives(uint32_t numberOfArguments)
 {
 	uint32_t** actives = createMatrix(numberOfArguments, 2);
 	for ( uint32_t i = 1; i < numberOfArguments; i++) {
@@ -184,35 +184,6 @@ static uint32_t freeContent(argumentInitTemp_t* argument)
 {
 	uint32_t retVal = freeList(argument->listAttackers);
 	retVal = retVal || freeList(argument->listVictims);
-}
-
-uint32_t** getReduct(argFramework_t* framework, uint32_t** activeArguments, uint32_t argument)
-{
-	uint32_t** newActives = copyMatrix(activeArguments);
-	deactivateArgument(newActives, argument);
-
-	uint32_t* victims = framework->victims[argument];
-	for (uint32_t i = 0; i < __crt_countof(victims); i++)
-	{
-		if (isActive(activeArguments, victims[i]) == 0)
-		{
-			continue;
-		}
-
-		deactivateArgument(newActives, victims[i]);
-	}
-
-	return newActives;
-}
-
-static  uint32_t deactivateArgument(uint32_t** activeArguments, uint32_t argument)
-{
-	activeArguments[activeArguments[argument][0]][1] = activeArguments[argument][1];
-	activeArguments[activeArguments[argument][1]][0] = activeArguments[argument][0];
-	activeArguments[argument][0] = NULL;
-	activeArguments[argument][1] = NULL;
-
-	return EXIT_SUCCESS;
 }
 
 uint32_t getPredecessor(uint32_t** activeArguments, uint32_t argument)

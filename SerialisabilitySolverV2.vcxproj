@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AF.c" />
+    <ClCompile Include="AFReduct.c" />
     <ClCompile Include="List.c" />
     <ClCompile Include="Matrix.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AF.h" />
+    <ClInclude Include="AFReduct.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Matrix.h" />
   </ItemGroup>

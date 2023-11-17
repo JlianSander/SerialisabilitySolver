@@ -36,6 +36,9 @@
     <ClCompile Include="Matrix.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AFReduct.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
@@ -46,6 +49,9 @@
     </ClInclude>
     <ClInclude Include="Matrix.h">
       <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="AFReduct.h">
+      <Filter>Header Files\DataModel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
