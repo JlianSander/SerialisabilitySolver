@@ -33,11 +33,14 @@
     <ClCompile Include="AF.c">
       <Filter>Source Files\DataModel</Filter>
     </ClCompile>
-    <ClCompile Include="Matrix.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="AFReduct.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\DataModel</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.c">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="Actives.c">
+      <Filter>Source Files\DataModel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +54,9 @@
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="AFReduct.h">
+      <Filter>Header Files\DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="Actives.h">
       <Filter>Header Files\DataModel</Filter>
     </ClInclude>
   </ItemGroup>

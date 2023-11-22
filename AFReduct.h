@@ -3,4 +3,4 @@
 #include "AF.h"
 #pragma once
 
-argFramework_t* getReduct(argFramework_t* framework, uint32_t argument); //returns the matix framework.actives for the reducted framework
+uint32_t** getReduct(uint32_t** activeArguments, argFramework_t* framework, uint32_t argument); //returns the matrix of the active arguments in the reducted framework

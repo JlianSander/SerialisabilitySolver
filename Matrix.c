@@ -21,8 +21,9 @@ uint32_t* createOneRow( uint32_t numColumns) {
 
 uint32_t** copyMatrix(uint32_t** matrix)
 {
-	uint32_t** newMatrix = createRows(_countof(matrix));
-	for ( uint32_t i = 0; i < countRows(matrix); i++) {
+	uint32_t numRows = countRows(matrix);
+	uint32_t** newMatrix = createRows(numRows);
+	for ( uint32_t i = 0; i < numRows; i++) {
 		newMatrix[i] = createOneRow(__crt_countof(matrix[i]));
 		for ( uint32_t j = 0; j < __crt_countof(matrix[i]); j++)
 		{
