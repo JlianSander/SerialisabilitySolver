@@ -30,16 +30,23 @@
     return EXIT_SUCCESS;
 }
 
- uint32_t push(nodeInt_t* head, uint32_t number) {
+ uint32_t push(nodeInt_t* head, uint32_t number) 
+{
     nodeInt_t * current = head;
     while (current -> next != NULL) { // iterate to end of list
         current = current -> next;
     }
 
-    current->next = (nodeInt_t*)malloc(sizeof(nodeInt_t));
-    current = current->next;
-    current->number = number;
-    current->next = NULL;
+    current->next = malloc(sizeof(nodeInt_t));
+    if (current->next == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    else {
+        current = current->next;
+        current->number = number;
+        current->next = NULL;
 
-    return EXIT_SUCCESS;
+        return EXIT_SUCCESS;
+    }
 }

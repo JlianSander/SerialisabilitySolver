@@ -1,48 +1,65 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "Matrix.h"
 
-uint32_t** createMatrix( uint32_t numRows,  uint32_t numColumns) {
-	uint32_t** matrix = createRows(numRows);
-	for ( uint32_t i = 0; i < numRows; i++) {
-		matrix[i] = createOneRow(numColumns);
+matrix_t* createMatrix(uint32_t numRows, uint32_t numColumns) {
+	matrix_t* matrix = malloc(sizeof(matrix_t));
+	if (matrix == NULL) {
+		printf("Memory allocation failed\n");
+		exit(1);
 	}
-	return matrix;
+	else {
+		matrix->numberRows = numRows;
+		matrix->numberColumns = numColumns;
+		matrix->content = createRows(numRows);
+		for (uint32_t i = 0; i < numRows; i++) {
+			matrix->content[i] = createOneRow(numColumns);
+		}
+		return matrix;
+	}
 }
 
 uint32_t** createRows( uint32_t numRows) {
-	uint32_t** matrix = (uint32_t**)malloc(numRows * sizeof(uint32_t*));
-	return matrix;
+	uint32_t** matrix = malloc(numRows * sizeof(uint32_t*));
+	if (matrix == NULL) {
+		printf("Memory allocation failed\n");
+		exit(1);
+	}
+	else {
+		return matrix;
+	}
 }
 
 uint32_t* createOneRow( uint32_t numColumns) {
-	return (uint32_t*)malloc(numColumns * sizeof(uint32_t));
+	uint32_t* row = malloc(numColumns * sizeof(uint32_t));
+	if (row == NULL) {
+		printf("Memory allocation failed\n");
+		exit(1);
+	}
+	else {
+		return row;
+	}
 }
 
-uint32_t** copyMatrix(uint32_t** matrix)
+matrix_t* copyMatrix(matrix_t* matrix)
 {
-	uint32_t numRows = countRows(matrix);
-	uint32_t** newMatrix = createRows(numRows);
-	for ( uint32_t i = 0; i < numRows; i++) {
-		newMatrix[i] = createOneRow(__crt_countof(matrix[i]));
-		for ( uint32_t j = 0; j < __crt_countof(matrix[i]); j++)
+	matrix_t* newMatrix = createMatrix(matrix->numberRows, matrix->numberColumns);
+	for (uint32_t i = 0; i < newMatrix->numberRows; i++) {
+		for (uint32_t j = 0; j < newMatrix->numberColumns; j++)
 		{
-			newMatrix[i][j] = matrix[i][j];
+			newMatrix->content[i][j] = matrix->content[i][j];
 		}
 	}
-
 	return newMatrix;
 }
 
- uint32_t freeMatrix(uint32_t** matrix) {
-	for ( uint32_t i = 0; i < countRows(matrix); i++) {
-		free(matrix[i]);
+ uint8_t freeMatrix(matrix_t* matrix) {
+	for ( uint32_t i = 0; i < matrix->numberRows; i++) {
+		free(matrix->content[i]);
 	}
-
-	return free(matrix);
+	free(matrix->content);
+	free(matrix);
+	return EXIT_SUCCESS;
 }
 
-static  uint32_t countRows(uint32_t** matrix)
-{
-	return sizeof(matrix) / sizeof(uint32_t);
-}
