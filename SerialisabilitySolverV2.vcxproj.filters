@@ -25,6 +25,15 @@
     <Filter Include="Header Files\DataModel">
       <UniqueIdentifier>{53df5660-ba34-4606-9f9c-7e06204674a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\SATSolver">
+      <UniqueIdentifier>{a0ece3aa-d37d-4764-b8a7-2db8f5d5f48d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\SATSolver">
+      <UniqueIdentifier>{2d490373-6225-4795-964d-c51521fc1eff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Libraries">
+      <UniqueIdentifier>{9b7a23c5-12a0-4975-b303-e462f6d139b1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="List.c">
@@ -45,6 +54,12 @@
     <ClCompile Include="Main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LinkedSparseMatrix.h">
+      <Filter>Header Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkedSparseMatrix.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
@@ -61,6 +76,9 @@
     </ClInclude>
     <ClInclude Include="Actives.h">
       <Filter>Header Files\DataModel</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalSatSolver.h">
+      <Filter>Header Files\SATSolver</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
