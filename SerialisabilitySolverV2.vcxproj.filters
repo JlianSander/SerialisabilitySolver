@@ -33,7 +33,7 @@
     <ClCompile Include="AF.c">
       <Filter>Source Files\DataModel</Filter>
     </ClCompile>
-    <ClCompile Include="AFReduct.c">
+    <ClCompile Include="Reduct.c">
       <Filter>Source Files\DataModel</Filter>
     </ClCompile>
     <ClCompile Include="Matrix.c">
@@ -56,7 +56,7 @@
     <ClInclude Include="Matrix.h">
       <Filter>Header Files\Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="AFReduct.h">
+    <ClInclude Include="Reduct.h">
       <Filter>Header Files\DataModel</Filter>
     </ClInclude>
     <ClInclude Include="Actives.h">

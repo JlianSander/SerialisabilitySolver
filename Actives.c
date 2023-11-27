@@ -4,30 +4,33 @@
 #include "Actives.h"
 #include "Matrix.h"
 
-uint8_t deactivateArgument(matrix_t* matrix, uint32_t argument)
+uint8_t deactivateArgument(matrix_t *matrix, uint32_t argument)
 {
+	uint32_t idxArgument = argument - 1;
 	uint32_t** activeArguments = matrix->content;
-	activeArguments[activeArguments[argument][0]][1] = activeArguments[argument][1];
-	activeArguments[activeArguments[argument][1]][0] = activeArguments[argument][0];
-	activeArguments[argument][0] = NULL;
-	activeArguments[argument][1] = NULL;
+	activeArguments[activeArguments[idxArgument][0]][1] = activeArguments[idxArgument][1];
+	activeArguments[activeArguments[idxArgument][1]][0] = activeArguments[idxArgument][0];
+	activeArguments[idxArgument][0] = NULL;
+	activeArguments[idxArgument][1] = NULL;
 
 	return EXIT_SUCCESS;
 }
 
-uint32_t getNext(matrix_t* activeArguments, uint32_t argument)
+uint32_t getNext(matrix_t *activeArguments, uint32_t argument)
 {
-	return activeArguments->content[argument][1];
+	uint32_t idxArgument = argument - 1;
+	return activeArguments->content[idxArgument][1];
 }
 
-uint32_t getPredecessor(matrix_t* activeArguments, uint32_t argument)
+uint32_t getPredecessor(matrix_t *activeArguments, uint32_t argument)
 {
-	return activeArguments->content[argument][0];
+	uint32_t idxArgument = argument - 1;
+	return activeArguments->content[idxArgument][0];
 }
 
 matrix_t* initializeActives(uint32_t numberOfArguments)
 {
-	matrix_t* actives = createMatrix(numberOfArguments, 2);
+	matrix_t *actives = createMatrix(numberOfArguments, 2);
 	for (uint32_t i = 0; i < numberOfArguments; i++) {
 		if (i == 0)
 		{
@@ -49,14 +52,15 @@ matrix_t* initializeActives(uint32_t numberOfArguments)
 	return actives;
 }
 
-uint8_t isActive(matrix_t* activeArguments, uint32_t argument)
+uint8_t isActive(matrix_t *activeArguments, uint32_t argument)
 {
-	if (activeArguments->content[argument][0] != NULL)
+	uint32_t idxArgument = argument - 1;
+	if (activeArguments->content[idxArgument][0] != NULL)
 	{
-		return 1;
+		return EXIT_SUCCESS;
 	}
 	else
 	{
-		return 0;
+		return EXIT_FAILURE;
 	}
 }

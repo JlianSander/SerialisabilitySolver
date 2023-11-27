@@ -6,9 +6,9 @@
 #include "List.h"
 #include "Matrix.h"
 
-static uint8_t goToArgument(argumentInitTemp_t* head, uint32_t argument, argumentInitTemp_t** resultRef)
+static uint8_t goToArgument(argumentInitTemp_t *head, uint32_t argument, argumentInitTemp_t **resultByRef)
 {
-	argumentInitTemp_t* current = head;
+	argumentInitTemp_t *current = head;
 	while (current->number != argument) { // iterate to the argument
 		current = current->next;
 
@@ -16,13 +16,14 @@ static uint8_t goToArgument(argumentInitTemp_t* head, uint32_t argument, argumen
 			return EXIT_FAILURE;
 		}
 	}
-	*resultRef = current;
+	*resultByRef = current;
 	return EXIT_SUCCESS;
 }
 
-static uint8_t updateVictim(argumentInitTemp_t* head, uint32_t attacker, uint32_t victim)
+static uint8_t updateVictim(argumentInitTemp_t *head, uint32_t attacker, uint32_t victim)
 {
-	argumentInitTemp_t** ptrCurrent = malloc(sizeof(argumentInitTemp_t*));
+	argumentInitTemp_t **ptrCurrent = NULL;
+	ptrCurrent = malloc( sizeof *ptrCurrent );
 	if (ptrCurrent == NULL) {
 		printf("Memory allocation failed\n");
 		exit(1);
@@ -32,20 +33,21 @@ static uint8_t updateVictim(argumentInitTemp_t* head, uint32_t attacker, uint32_
 		{
 			return EXIT_FAILURE;
 		}
-		argumentInitTemp_t* current = *ptrCurrent;
+		argumentInitTemp_t *current = *ptrCurrent;
 		free(ptrCurrent);
 
 		if (current->listAttackers == NULL) {
 			//initialize list of attackers
-			current->listAttackers = malloc(sizeof(nodeInt_t));
-			if (current->listAttackers == NULL) {
+			nodeInt_t *firstAttacker = NULL;
+			firstAttacker = malloc( sizeof *firstAttacker );
+			if (firstAttacker == NULL) {
 				printf("Memory allocation failed\n");
 				exit(1);
 			}
 			else {
-
-				current->listAttackers->next = NULL;
-				current->listAttackers->number = attacker;
+				firstAttacker->next = NULL;
+				firstAttacker->number = attacker;
+				current->listAttackers = firstAttacker;
 			}
 		}
 		else {
@@ -56,9 +58,10 @@ static uint8_t updateVictim(argumentInitTemp_t* head, uint32_t attacker, uint32_
 	
 }
 
-static uint8_t updateAttacker(argumentInitTemp_t* head, uint32_t attacker, uint32_t victim)
+static uint8_t updateAttacker(argumentInitTemp_t *head, uint32_t attacker, uint32_t victim)
 {
-	argumentInitTemp_t** ptrCurrent = malloc(sizeof(argumentInitTemp_t*));
+	argumentInitTemp_t **ptrCurrent = NULL;
+	ptrCurrent = malloc( sizeof *ptrCurrent );
 	if (ptrCurrent == NULL) {
 		printf("Memory allocation failed\n");
 		exit(1);
@@ -67,19 +70,21 @@ static uint8_t updateAttacker(argumentInitTemp_t* head, uint32_t attacker, uint3
 		if (goToArgument(head, attacker, ptrCurrent) == EXIT_FAILURE) {
 			return EXIT_FAILURE;
 		}
-		argumentInitTemp_t* current = *ptrCurrent;
+		argumentInitTemp_t *current = *ptrCurrent;
 		free(ptrCurrent);
 
 		if (current->listVictims == NULL) {
 			//initialize list of victims
-			current->listVictims = malloc(sizeof(nodeInt_t));
-			if (current->listVictims == NULL) {
+			nodeInt_t *firstVictim = NULL;
+			firstVictim = malloc(sizeof *firstVictim);
+			if (firstVictim == NULL) {
 				printf("Memory allocation failed\n");
 				exit(1);
 			}
 			else {
-				current->listVictims->next = NULL;
-				current->listVictims->number = victim;
+				firstVictim->next = NULL;
+				firstVictim->number = victim;
+				current->listVictims = firstVictim;
 			}
 		}
 		else {
@@ -89,15 +94,15 @@ static uint8_t updateAttacker(argumentInitTemp_t* head, uint32_t attacker, uint3
 	}
 }
 
-uint8_t addAttack(argumentInitTemp_t* head,  uint32_t attacker,  uint32_t victim) {
+uint8_t addAttack(argumentInitTemp_t *head, uint32_t attacker, uint32_t victim) {
 	uint8_t retVal = updateAttacker(head, attacker, victim);
 	retVal = retVal || updateVictim(head, attacker, victim);
 	return retVal;
 }
 
-static uint32_t countArguments(argumentInitTemp_t* head)
+static uint32_t countArguments(argumentInitTemp_t *head)
 {
-	argumentInitTemp_t* current = head;
+	argumentInitTemp_t *current = head;
 	uint32_t count = 1;
 	while (current->next != NULL) { // iterate to end of list
 		current = current->next;
@@ -107,21 +112,33 @@ static uint32_t countArguments(argumentInitTemp_t* head)
 	return count;
 }
 
-static uint32_t** initializeAttackers(argumentInitTemp_t* head, uint32_t numberOfArguments)
+static matrix_t* initializeAttackers(argumentInitTemp_t *head, uint32_t numberOfArguments)
 {
-	argumentInitTemp_t* current = head;
-	uint32_t** matrix = createRows(numberOfArguments);
+	argumentInitTemp_t *current = head;
+	matrix_t *matrix = createMatrix(numberOfArguments, numberOfArguments + 1);
 
-	for (uint32_t i = 0; i < numberOfArguments; i++)
+	while(current != NULL)
 	{
-		uint32_t numArgs = countList(current->listAttackers);
-		matrix[i] = createOneRow(numArgs);
-		nodeInt_t* currentAttacker = current->listAttackers;
-		for (uint32_t j = 0; j < numArgs; j++)
-		{
-			matrix[i][j] = currentAttacker->number;
+		uint32_t row = current->number - 1;
+		nodeInt_t *currentAttacker = current->listAttackers;
+		if (currentAttacker != NULL) {
+			matrix->content[row][0] = currentAttacker->number;
+		}
+		else {
+			matrix->content[row][0] = -1;
+		}
 
-			currentAttacker = currentAttacker->next;
+		while(currentAttacker != NULL)
+		{
+			nodeInt_t *nextAttacker = currentAttacker->next;
+			if (nextAttacker == NULL) {
+				matrix->content[row][currentAttacker->number] = -1;
+			}
+			else {
+				matrix->content[row][currentAttacker->number] = nextAttacker->number;
+			}
+
+			currentAttacker = nextAttacker;
 		}
 
 		current = current->next;
@@ -130,20 +147,32 @@ static uint32_t** initializeAttackers(argumentInitTemp_t* head, uint32_t numberO
 	return matrix;
 }
 
-static uint32_t** initializeVictims(argumentInitTemp_t* head, uint32_t numberOfArguments) {
-	argumentInitTemp_t* current = head;
-	uint32_t** matrix = createRows(numberOfArguments);
+static matrix_t* initializeVictims(argumentInitTemp_t *head, uint32_t numberOfArguments) {
+	argumentInitTemp_t *current = head;
+	matrix_t *matrix = createMatrix(numberOfArguments, numberOfArguments + 1);
 
-	for (uint32_t i = 0; i < numberOfArguments; i++)
+	while (current != NULL)
 	{
-		uint32_t numArgs = countList(current->listVictims);
-		matrix[i] = createOneRow(numArgs);
-		nodeInt_t* currentVictim = current->listVictims;
-		for (uint32_t j = 0; j < numArgs; j++)
-		{
-			matrix[i][j] = currentVictim->number;
+		uint32_t row = current->number - 1;
+		nodeInt_t *currentVictim = current->listVictims;
+		if (currentVictim != NULL) {
+			matrix->content[row][0] = currentVictim->number;
+		}
+		else {
+			matrix->content[row][0] = -1;
+		}
 
-			currentVictim = currentVictim->next;
+		while (currentVictim != NULL)
+		{
+			nodeInt_t *nextVictim = currentVictim->next;
+			if (nextVictim == NULL) {
+				matrix->content[row][currentVictim->number] = -1;
+			}
+			else {
+				matrix->content[row][currentVictim->number] = nextVictim->number;
+			}
+
+			currentVictim = nextVictim;
 		}
 
 		current = current->next;
@@ -152,34 +181,47 @@ static uint32_t** initializeVictims(argumentInitTemp_t* head, uint32_t numberOfA
 	return matrix;
 }
 
-static uint32_t freeContent(argumentInitTemp_t* argument)
+static uint8_t freeContent(argumentInitTemp_t *argument)
 {
-	uint32_t retVal = freeList(argument->listAttackers);
-	retVal = retVal || freeList(argument->listVictims);
-	return EXIT_SUCCESS;
+	uint8_t retVal = EXIT_SUCCESS;
+	if (argument->listAttackers != NULL) {
+		retVal = freeList(argument->listAttackers);
+	}
+
+	if (argument->listVictims != NULL) {
+		retVal = retVal || freeList(argument->listVictims);
+	}
+
+	return retVal;
 }
 
-static  uint32_t freeInitializationMemory(argumentInitTemp_t* head)
+static  uint32_t freeInitializationMemory(argumentInitTemp_t *head)
 {
-	argumentInitTemp_t* current = head;
-	argumentInitTemp_t* next = current->next;
+	argumentInitTemp_t *current = head;
+	if (current == NULL) {
+		return EXIT_SUCCESS;
+	}
+	else {
+		argumentInitTemp_t *next = current->next;
 
-	while (next != NULL)
-	{
+		while (next != NULL)
+		{
+			freeContent(current);
+			free(current);
+			current = next;
+			next = current->next;
+		}
 		freeContent(current);
 		free(current);
-		current = next;
-		next = current->next;
-	}
-	freeContent(current);
-	free(current);
 
-	return EXIT_SUCCESS;
+		return EXIT_SUCCESS;
+	}
 }
 
-argFramework_t* initializeFramework(argumentInitTemp_t* head)
+argFramework_t* initializeFramework(argumentInitTemp_t *head)
 {
-	argFramework_t* framework = malloc(sizeof(argFramework_t));
+	argFramework_t *framework = NULL;
+	framework = malloc(sizeof *framework);
 	if (framework == NULL) {
 		printf("Memory allocation failed\n");
 		exit(1);
@@ -194,23 +236,23 @@ argFramework_t* initializeFramework(argumentInitTemp_t* head)
 	}
 }
 
-static argumentInitTemp_t* addArgument(argumentInitTemp_t* predecessor, uint32_t argument) {
-	argumentInitTemp_t* current = predecessor;
-
+static argumentInitTemp_t* addArgument(argumentInitTemp_t *predecessor, uint32_t argument) 
+{
 	//create new argument
-	current->next = malloc(sizeof(argumentInitTemp_t));
-	if (current->next == NULL) {
+	argumentInitTemp_t *current = NULL;
+	current = malloc(sizeof *current);
+	if (current == NULL) {
 		printf("Memory allocation failed\n");
 		exit(1);
 	}
 	else {
-		current = current->next;
-
 		//initialize argument
 		current->next = NULL;
 		current->number = argument;
 		current->listAttackers = NULL;
 		current->listVictims = NULL;
+
+		predecessor->next = current;
 
 		return current;
 	}
@@ -219,7 +261,8 @@ static argumentInitTemp_t* addArgument(argumentInitTemp_t* predecessor, uint32_t
 argumentInitTemp_t* setUpInitialization(uint32_t numberArguments)
 {
 	uint32_t firstArgument = 1;
-	argumentInitTemp_t* head = malloc(sizeof(argumentInitTemp_t));
+	argumentInitTemp_t *head = NULL;
+	head = malloc(sizeof *head);
 	if (head == NULL) {
 		printf("Memory allocation failed\n");
 		exit(1);
@@ -231,8 +274,8 @@ argumentInitTemp_t* setUpInitialization(uint32_t numberArguments)
 		head->listAttackers = NULL;
 		head->listVictims = NULL;
 
-		argumentInitTemp_t* current = head;
-		for (uint32_t i = 2; i < numberArguments; i++)
+		argumentInitTemp_t *current = head;
+		for (uint32_t i = 2; i <= numberArguments; i++)
 		{
 			current = addArgument(current, i);
 		}
