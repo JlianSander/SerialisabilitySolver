@@ -1,6 +1,6 @@
 #ifndef LINKED_SPARSE_MATRIX_H
 #define LINKED_SPARSE_MATRIX_H
-
+#include <stdbool.h>
 #include "Matrix.h"
 
 /// <summary>
@@ -24,9 +24,8 @@ uint32_t getNextInRow(matrix_t *matrix, uint32_t row, uint32_t currentCell);
 /// <param name="matrix">The linked sparse matrix-</param>
 /// <param name="row">Index to access the specified row in the matrix.</param>
 /// <param name="currentCell">The currently pointed cell. For initial call use '0'.</param>
-/// <param name="resultByReference"> 0 iff there is a next cell. 1 otherwise</param>
-/// <returns>EXIT_SUCCESS the operation was successful. EXIT_FAILURE if there was an error.</returns>
-uint8_t hasNextInRow(matrix_t *matrix, uint32_t row, uint32_t currentCell, uint8_t *resultByReference);
+/// <returns>TRUE iff there is a next cell. FALSE otherwise</returns>
+bool hasNextInRow(matrix_t *matrix, uint32_t row, uint32_t currentCell);
 /// <summary>
 /// Methods checks if a cell in a specified row and specified collumn is set or not.
 /// </summary>

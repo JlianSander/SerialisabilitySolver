@@ -40,7 +40,7 @@ typedef struct listInt {
 /// </summary>
 /// <param name="head">The first node of the list.</param>
 /// <returns>EXIT_SUCCESS iff the deallocation was successful.</returns>
- uint8_t freeList(listInt_t *head);
+ uint8_t freeListOfList(listInt_t *head);
  /// <summary>
 /// Adds a specified number at the end of the list. 
 /// </summary>
@@ -54,6 +54,6 @@ typedef struct listInt {
  /// <param name="head">The first node of the list.</param>
 /// <param name="number">Element to add.</param>
 /// <returns>EXIT_SUCCESS iff the operation was successful.</returns>
- uint8_t push(listInt_t *head, nodeInt_t *element);
+ uint8_t pushList(listInt_t *head, nodeInt_t *element);
 
 #endif
