@@ -2,6 +2,7 @@
 #define ACTIVES_H
 
 #include <stdint.h>
+#include <stdbool.h>
 #include "Matrix.h"
 
 /// <summary>
@@ -26,6 +27,20 @@ uint32_t getNext(matrix_t *activeArguments, uint32_t argument);
 /// <returns>The active argument, which was located before the argument specified.</returns>
 uint32_t getPredecessor(matrix_t *activeArguments, uint32_t argument);
 /// <summary>
+/// Checks if a specified argument is the last in line of the active arguments.
+/// </summary>
+/// <param name="activeArguments">Matrix registering, which argument is active.</param>
+/// <param name="argument">The currently pointed to active argument.</param>
+/// <returns>TRUE iff there is a another active argument after the specified one. FALSE otherwise.</returns>
+bool hasNext(matrix_t *activeArguments, uint32_t argument);
+/// <summary>
+/// Checks if a specified argument is the first of the active arguments.
+/// </summary>
+/// <param name="activeArguments">Matrix registering, which argument is active.</param>
+/// <param name="argument">The currently pointed to active argument.</param>
+/// <returns>TRUE iff there is a another active argument positioned before the specified one in the list of active arguments. FALSE otherwise.</returns>
+bool hasPredecessor(matrix_t *activeArguments, uint32_t argument);
+/// <summary>
 /// Creates a 2D-matrix, allowing direct access to and efficient iterating through the active arguments of 
 /// a framework. <br> - </br> The structure is the following: 1st column points to the last active predecessor; 
 /// 2nd column points to the next active successor. <br> - </br>
@@ -35,11 +50,11 @@ uint32_t getPredecessor(matrix_t *activeArguments, uint32_t argument);
 /// <returns>2D matrix of all indicating active arguments.</returns>
 matrix_t* initializeActives(uint32_t numberOfArguments);
 /// <summary>
-/// Check if a specified argument is registered to be active in a specified matrix.
+/// Checks if a specified argument is registered to be active in a specified matrix.
 /// </summary>
 /// <param name="activeArguments">Matrix registering, which argument is active.</param>
 /// <param name="argument">The argument to be checked.</param>
 /// <returns>Returns EXIT_SUCCESS iff specified argument is active; Returns EXIT_FAILURE otherwise</returns>
-uint8_t isActive(matrix_t *activeArguments, uint32_t argument);
+bool isActive(matrix_t *activeArguments, uint32_t argument);
 
 #endif

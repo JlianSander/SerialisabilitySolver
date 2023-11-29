@@ -5,6 +5,7 @@
 #include "Actives.h"
 #include "List.h"
 #include "Matrix.h"
+#include "LinkedSparseMatrix.h"
 
 static uint8_t goToArgument(argumentInitTemp_t *head, uint32_t argument, argumentInitTemp_t **resultByRef)
 {
@@ -115,30 +116,15 @@ static uint32_t countArguments(argumentInitTemp_t *head)
 static matrix_t* initializeAttackers(argumentInitTemp_t *head, uint32_t numberOfArguments)
 {
 	argumentInitTemp_t *current = head;
-	matrix_t *matrix = createMatrix(numberOfArguments, numberOfArguments + 1);
+	matrix_t *matrix = createLinkedSparseMatrix(numberOfArguments, numberOfArguments);
 
 	while(current != NULL)
 	{
-		uint32_t row = current->number - 1;
 		nodeInt_t *currentAttacker = current->listAttackers;
-		if (currentAttacker != NULL) {
-			matrix->content[row][0] = currentAttacker->number;
-		}
-		else {
-			matrix->content[row][0] = -1;
-		}
-
 		while(currentAttacker != NULL)
 		{
-			nodeInt_t *nextAttacker = currentAttacker->next;
-			if (nextAttacker == NULL) {
-				matrix->content[row][currentAttacker->number] = -1;
-			}
-			else {
-				matrix->content[row][currentAttacker->number] = nextAttacker->number;
-			}
-
-			currentAttacker = nextAttacker;
+			setCell(matrix, current->number, currentAttacker->number);
+			currentAttacker = currentAttacker->next;
 		}
 
 		current = current->next;
@@ -149,30 +135,16 @@ static matrix_t* initializeAttackers(argumentInitTemp_t *head, uint32_t numberOf
 
 static matrix_t* initializeVictims(argumentInitTemp_t *head, uint32_t numberOfArguments) {
 	argumentInitTemp_t *current = head;
-	matrix_t *matrix = createMatrix(numberOfArguments, numberOfArguments + 1);
+	matrix_t *matrix = createLinkedSparseMatrix(numberOfArguments, numberOfArguments);
 
 	while (current != NULL)
 	{
-		uint32_t row = current->number - 1;
 		nodeInt_t *currentVictim = current->listVictims;
-		if (currentVictim != NULL) {
-			matrix->content[row][0] = currentVictim->number;
-		}
-		else {
-			matrix->content[row][0] = -1;
-		}
 
 		while (currentVictim != NULL)
 		{
-			nodeInt_t *nextVictim = currentVictim->next;
-			if (nextVictim == NULL) {
-				matrix->content[row][currentVictim->number] = -1;
-			}
-			else {
-				matrix->content[row][currentVictim->number] = nextVictim->number;
-			}
-
-			currentVictim = nextVictim;
+			setCell(matrix, current->number, currentVictim->number);
+			currentVictim = currentVictim->next;
 		}
 
 		current = current->next;

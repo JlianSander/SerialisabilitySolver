@@ -10,7 +10,7 @@ typedef struct matrix {
 } matrix_t;
 
 /// <summary>
-/// Creates a 2D-matrix of specified number of rows and collumns and sets all entries to 0.
+/// Creates a 2D-matrix of specified number of rows and columns and sets all entries to 0.
 /// </summary>
 /// <param name="numRows">The number rows.</param>
 /// <param name="numColumns">The number columns.</param>

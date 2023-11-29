@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "Actives.h"
 #include "Matrix.h"
 
@@ -10,8 +11,8 @@ uint8_t deactivateArgument(matrix_t *matrix, uint32_t argument)
 	uint32_t** activeArguments = matrix->content;
 	activeArguments[activeArguments[idxArgument][0]][1] = activeArguments[idxArgument][1];
 	activeArguments[activeArguments[idxArgument][1]][0] = activeArguments[idxArgument][0];
-	activeArguments[idxArgument][0] = NULL;
-	activeArguments[idxArgument][1] = NULL;
+	activeArguments[idxArgument][0] = 0;
+	activeArguments[idxArgument][1] = 0;
 
 	return EXIT_SUCCESS;
 }
@@ -34,7 +35,7 @@ matrix_t* initializeActives(uint32_t numberOfArguments)
 	for (uint32_t i = 0; i < numberOfArguments; i++) {
 		if (i == 0)
 		{
-			actives->content[i][0] = -1;
+			actives->content[i][0] = 0;
 		}
 		else
 		{
@@ -42,7 +43,7 @@ matrix_t* initializeActives(uint32_t numberOfArguments)
 		}
 		
 		if (i == numberOfArguments - 1) {
-			actives->content[i][1] = -1;
+			actives->content[i][1] = 0;
 		}
 		else {
 			actives->content[i][1] = i + 1;
@@ -52,15 +53,24 @@ matrix_t* initializeActives(uint32_t numberOfArguments)
 	return actives;
 }
 
-uint8_t isActive(matrix_t *activeArguments, uint32_t argument)
+bool isActive(matrix_t *activeArguments, uint32_t argument)
 {
 	uint32_t idxArgument = argument - 1;
-	if (activeArguments->content[idxArgument][0] != NULL)
+	if (activeArguments->content[idxArgument][0] == 0
+		&& activeArguments->content[idxArgument][1] == 0)
 	{
-		return EXIT_SUCCESS;
+		return false;
 	}
 	else
 	{
-		return EXIT_FAILURE;
+		return true;
 	}
+}
+
+bool hasNext(matrix_t *activeArguments, uint32_t argument) {
+	return activeArguments->content[argument - 1][1] != 0;
+}
+
+bool hasPredecessor(matrix_t *activeArguments, uint32_t argument) {
+	return activeArguments->content[argument - 1][0] != 0;
 }
