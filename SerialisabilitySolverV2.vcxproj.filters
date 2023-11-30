@@ -60,6 +60,9 @@
     <ClCompile Include="LinkedSparseMatrix.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ExternalSatSolver.c">
+      <Filter>Source Files\SATSolver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">

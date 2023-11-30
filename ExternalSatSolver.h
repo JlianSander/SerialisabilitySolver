@@ -11,18 +11,19 @@
 ///<summary>
 /// Data model of the clauses used by the solver for calculation.
 ///</summary>
-typedef struct SATSolverInfo {
+typedef struct SATSolver {
+    nodeInt_t *model;
     listInt_t *clauses;
     listInt_t *minimizationClauses;
     nodeInt_t *assumptions;
-} SATSolverInfo_t;
+} SATSolver_t;
 
 
-void assume(SATSolverInfo *solver, int literal);
-void addClause(SATSolverInfo *solver, nodeInt_t *clause);
-void addMinimizationClause(SATSolverInfo *solver, nodeInt_t *clause);
-int solve();
-int solve(nodeInt_t *assumptions);
-void free();
+void assume(SATSolver_t *solver, uint32_t literal);
+void addClause(SATSolver_t *solver, nodeInt_t *clause);
+void addMinimizationClause(SATSolver_t *solver, nodeInt_t *clause);
+int solve(SATSolver_t *solver);
+int solve(SATSolver_t *solver, nodeInt_t *assumptions);
+void free(SATSolver_t *solver);
 
 #endif
