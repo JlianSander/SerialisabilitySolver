@@ -6,24 +6,23 @@
 #include "List.h"
 #include "Matrix.h"
 #include "Actives.h"
+#include "LinkedSparseMatrix.h"
 
 matrix_t* getReduct(matrix_t* activeArguments, argFramework_t* framework, uint32_t argument)
 {
 	matrix_t *newActives = copyMatrix(activeArguments);
 	deactivateArgument(newActives, argument);
-	uint32_t *rowVictims = framework->victims->content[argument];
-	uint32_t idxNxtVictim = rowVictims[0];
-
-	//when idxNxtVictim == -1 stopp; when idxNxtVictim == 0 ERROR
-	while (idxNxtVictim > 0) {
-		deactivateArgument(newActives, idxNxtVictim);
-		idxNxtVictim = rowVictims[idxNxtVictim];
+	uint32_t currentVictim = 0;
+	if (!hasNextInRow(framework->victims, argument, currentVictim)){
+		return newActives;
 	}
 
-	if (idxNxtVictim == 0) {
-		printf("ERROR in data model of framework->victims: Expected next entry not '0'");
-		exit(1);
-	}
+	do {
+		currentVictim = getNextInRow(framework->victims, argument, currentVictim);
+		if (isActive(newActives, currentVictim)){
+			deactivateArgument(newActives, currentVictim);
+		}
+	} while (hasNextInRow(framework->victims, argument, currentVictim));
 
 	return newActives;
 }
