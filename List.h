@@ -28,19 +28,19 @@ typedef struct listInt {
 /// </summary>
 /// <param name="head">The first node of the list.</param>
 /// <returns>Number of nodes in the specified list.</returns>
- uint32_t countList(nodeInt_t* head);
+ uint32_t count_list(nodeInt_t* head);
  /// <summary>
 /// Deallocates the memory space of a specified list. 
 /// </summary>
 /// <param name="head">The first node of the list.</param>
 /// <returns>EXIT_SUCCESS iff the deallocation was successful.</returns>
- uint8_t freeList(nodeInt_t* head);
+ uint8_t free_list(nodeInt_t* head);
  /// <summary>
 /// Deallocates the memory space of a specified list. 
 /// </summary>
 /// <param name="head">The first node of the list.</param>
 /// <returns>EXIT_SUCCESS iff the deallocation was successful.</returns>
- uint8_t freeListOfList(listInt_t *head);
+ uint8_t free_list_of_list(listInt_t *head);
  /// <summary>
 /// Adds a specified number at the end of the list. 
 /// </summary>
@@ -54,6 +54,6 @@ typedef struct listInt {
  /// <param name="head">The first node of the list.</param>
 /// <param name="number">Element to add.</param>
 /// <returns>EXIT_SUCCESS iff the operation was successful.</returns>
- uint8_t pushList(listInt_t *head, nodeInt_t *element);
+ uint8_t push_list(listInt_t *head, nodeInt_t *element);
 
 #endif

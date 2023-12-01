@@ -95,7 +95,7 @@ static uint8_t updateAttacker(argumentInitTemp_t *head, uint32_t attacker, uint3
 	}
 }
 
-uint8_t addAttack(argumentInitTemp_t *head, uint32_t attacker, uint32_t victim) {
+uint8_t add_attack(argumentInitTemp_t *head, uint32_t attacker, uint32_t victim) {
 	uint8_t retVal = updateAttacker(head, attacker, victim);
 	retVal = retVal || updateVictim(head, attacker, victim);
 	return retVal;
@@ -116,14 +116,14 @@ static uint32_t countArguments(argumentInitTemp_t *head)
 static matrix_t* initializeAttackers(argumentInitTemp_t *head, uint32_t numberOfArguments)
 {
 	argumentInitTemp_t *current = head;
-	matrix_t *matrix = createLinkedSparseMatrix(numberOfArguments, numberOfArguments);
+	matrix_t *matrix = create_linked_sparse_matrix(numberOfArguments, numberOfArguments);
 
 	while(current != NULL)
 	{
 		nodeInt_t *currentAttacker = current->listAttackers;
 		while(currentAttacker != NULL)
 		{
-			setCell(matrix, current->number, currentAttacker->number);
+			set_cell(matrix, current->number, currentAttacker->number);
 			currentAttacker = currentAttacker->next;
 		}
 
@@ -135,7 +135,7 @@ static matrix_t* initializeAttackers(argumentInitTemp_t *head, uint32_t numberOf
 
 static matrix_t* initializeVictims(argumentInitTemp_t *head, uint32_t numberOfArguments) {
 	argumentInitTemp_t *current = head;
-	matrix_t *matrix = createLinkedSparseMatrix(numberOfArguments, numberOfArguments);
+	matrix_t *matrix = create_linked_sparse_matrix(numberOfArguments, numberOfArguments);
 
 	while (current != NULL)
 	{
@@ -143,7 +143,7 @@ static matrix_t* initializeVictims(argumentInitTemp_t *head, uint32_t numberOfAr
 
 		while (currentVictim != NULL)
 		{
-			setCell(matrix, current->number, currentVictim->number);
+			set_cell(matrix, current->number, currentVictim->number);
 			currentVictim = currentVictim->next;
 		}
 
@@ -157,11 +157,11 @@ static uint8_t freeContent(argumentInitTemp_t *argument)
 {
 	uint8_t retVal = EXIT_SUCCESS;
 	if (argument->listAttackers != NULL) {
-		retVal = freeList(argument->listAttackers);
+		retVal = free_list(argument->listAttackers);
 	}
 
 	if (argument->listVictims != NULL) {
-		retVal = retVal || freeList(argument->listVictims);
+		retVal = retVal || free_list(argument->listVictims);
 	}
 
 	return retVal;
@@ -190,7 +190,7 @@ static  uint32_t freeInitializationMemory(argumentInitTemp_t *head)
 	}
 }
 
-argFramework_t* initializeFramework(argumentInitTemp_t *head)
+argFramework_t* initialize_framework(argumentInitTemp_t *head)
 {
 	argFramework_t *framework = NULL;
 	framework = malloc(sizeof *framework);
@@ -230,7 +230,7 @@ static argumentInitTemp_t* addArgument(argumentInitTemp_t *predecessor, uint32_t
 	}
 }
 
-argumentInitTemp_t* setUpInitialization(uint32_t numberArguments)
+argumentInitTemp_t* set_up_initialization(uint32_t numberArguments)
 {
 	uint32_t firstArgument = 1;
 	argumentInitTemp_t *head = NULL;

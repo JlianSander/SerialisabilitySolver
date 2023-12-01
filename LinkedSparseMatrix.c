@@ -4,18 +4,18 @@
 #include <stdlib.h>
 #include "LinkedSparseMatrix.h"
 
-matrix_t *createLinkedSparseMatrix(uint32_t row, uint32_t column) {
+matrix_t *create_linked_sparse_matrix(uint32_t row, uint32_t column) {
 	// add an additional column at the left, to register beginning of linked cells
 	// add an additional empty row at the top in a linked sparse matrix, to correct symmetry
-	matrix_t *matrix = createMatrix(row + 1, column + 1);
+	matrix_t *matrix = create_matrix(row + 1, column + 1);
 	return matrix;
 }
 
-uint32_t getNextInRow(matrix_t *matrix, uint32_t row, uint32_t currentCell) {
+uint32_t get_next_in_row(matrix_t *matrix, uint32_t row, uint32_t currentCell) {
 	return matrix->content[row][currentCell];
 }
 
-bool hasNextInRow(matrix_t *matrix, uint32_t row, uint32_t currentCell) {
+bool has_next_in_row(matrix_t *matrix, uint32_t row, uint32_t currentCell) {
 	if (matrix->content[row][currentCell] == 0) {
 		return false;
 	}
@@ -28,7 +28,7 @@ bool hasNextInRow(matrix_t *matrix, uint32_t row, uint32_t currentCell) {
 	}
 }
 
-bool isCellFilled(matrix_t *matrix, uint32_t row, uint32_t column) {
+bool is_cell_filled(matrix_t *matrix, uint32_t row, uint32_t column) {
 	if (matrix->content[row][column] == 0) {
 		return false;
 	}
@@ -37,7 +37,7 @@ bool isCellFilled(matrix_t *matrix, uint32_t row, uint32_t column) {
 	}
 }
 
-uint8_t setCell(matrix_t *matrix, uint32_t row, uint32_t column) {
+uint8_t set_cell(matrix_t *matrix, uint32_t row, uint32_t column) {
 	if (row == 0 || column == 0) {
 		//must not set flags in these places
 		return EXIT_FAILURE;
@@ -48,7 +48,7 @@ uint8_t setCell(matrix_t *matrix, uint32_t row, uint32_t column) {
 	}
 	uint8_t isSet = 1;
 	uint32_t lower = column - 1;
-	while (isCellFilled(matrix, row, lower) == false && lower > 0) {
+	while (is_cell_filled(matrix, row, lower) == false && lower > 0) {
 		lower--;
 	}
 

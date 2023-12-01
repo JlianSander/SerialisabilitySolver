@@ -32,6 +32,7 @@
   <ItemGroup>
     <ClInclude Include="Actives.h" />
     <ClInclude Include="AF.h" />
+    <ClInclude Include="Encodings.h" />
     <ClInclude Include="ExternalSatSolver.h" />
     <ClInclude Include="Reduct.h" />
     <ClInclude Include="List.h" />

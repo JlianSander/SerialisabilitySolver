@@ -47,20 +47,20 @@ typedef struct argFramework {
 /// <param name="attacker">Number of the argument, which is the attacker.</param>
 /// <param name="victim">Number of the argument, which is being attacked.</param>
 /// <returns> EXIT_SUCCESS iff the operation was successful. EXIT_FAILURE if any of the specified arguments couldn't be found in the specified list of arguments.</returns>
-uint8_t addAttack(argumentInitTemp_t *head,  uint32_t attacker,  uint32_t victim);
+uint8_t add_attack(argumentInitTemp_t *head,  uint32_t attacker,  uint32_t victim);
 /// <summary>
 /// Initializes the data model of the framework based on the specified data structure of the initialization phase.
 /// </summary>
 /// <param name="head">List of arguments, used during initialization.</param>
 /// <returns>The data model of the framework.</returns>
-argFramework_t* initializeFramework(argumentInitTemp_t *head);
+argFramework_t* initialize_framework(argumentInitTemp_t *head);
 /// <summary>
 /// Initializes the data structure used during the initializing phase, during which the structure of the framework gets
 /// sequentially build up.
 /// </summary>
 /// <param name="numberArguments">Number of arguments in the framework.</param>
 /// <returns>List of arguments in the framework to build.</returns>
-argumentInitTemp_t* setUpInitialization(uint32_t numberArguments);
+argumentInitTemp_t* set_up_initialization(uint32_t numberArguments);
 
 #endif
 

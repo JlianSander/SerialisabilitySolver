@@ -3,7 +3,7 @@
 #include "List.h"
 
 
-uint32_t countList(nodeInt_t *head)
+uint32_t count_list(nodeInt_t *head)
 {
     nodeInt_t *current = head;
      uint32_t count = 1;
@@ -15,7 +15,7 @@ uint32_t countList(nodeInt_t *head)
     return count;
 }
 
-uint8_t freeList(nodeInt_t *head)
+uint8_t free_list(nodeInt_t *head)
 {
     nodeInt_t *current = head;
     nodeInt_t *next = current->next;
@@ -31,19 +31,19 @@ uint8_t freeList(nodeInt_t *head)
     return EXIT_SUCCESS;
 }
 
-uint8_t freeListOfList(listInt_t *head) 
+uint8_t free_list_of_list(listInt_t *head) 
 {
     listInt_t *current = head;
     listInt_t *next = current->next;
 
     while (next != NULL)
     {
-        freeList(current->element);
+        free_list(current->element);
         free(current);
         current = next;
         next = current->next;
     }
-    freeList(current->element);
+    free_list(current->element);
     free(current);
 
     return EXIT_SUCCESS;
@@ -72,7 +72,7 @@ uint8_t push(nodeInt_t *head, uint32_t number)
     }
 }
 
-uint8_t pushList(listInt_t *head, nodeInt_t *element) 
+uint8_t push_list(listInt_t *head, nodeInt_t *element) 
 {
     listInt_t *current = head;
     while (current->next != NULL) { // iterate to end of list

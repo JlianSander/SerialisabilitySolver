@@ -8,21 +8,21 @@
 #include "Actives.h"
 #include "LinkedSparseMatrix.h"
 
-matrix_t* getReduct(matrix_t* activeArguments, argFramework_t* framework, uint32_t argument)
+matrix_t* get_reduct(matrix_t* activeArguments, argFramework_t* framework, uint32_t argument)
 {
-	matrix_t *newActives = copyMatrix(activeArguments);
-	deactivateArgument(newActives, argument);
+	matrix_t *newActives = copy_matrix(activeArguments);
+	deactivate_argument(newActives, argument);
 	uint32_t currentVictim = 0;
-	if (!hasNextInRow(framework->victims, argument, currentVictim)){
+	if (!has_next_in_row(framework->victims, argument, currentVictim)){
 		return newActives;
 	}
 
 	do {
-		currentVictim = getNextInRow(framework->victims, argument, currentVictim);
-		if (isActive(newActives, currentVictim)){
-			deactivateArgument(newActives, currentVictim);
+		currentVictim = get_next_in_row(framework->victims, argument, currentVictim);
+		if (is_active(newActives, currentVictim)){
+			deactivate_argument(newActives, currentVictim);
 		}
-	} while (hasNextInRow(framework->victims, argument, currentVictim));
+	} while (has_next_in_row(framework->victims, argument, currentVictim));
 
 	return newActives;
 }

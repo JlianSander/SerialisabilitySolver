@@ -5,7 +5,6 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <string.h>
 #include "List.h"
 
 ///<summary>
@@ -20,10 +19,10 @@ typedef struct SATSolver {
 
 
 void assume(SATSolver_t *solver, uint32_t literal);
-void addClause(SATSolver_t *solver, nodeInt_t *clause);
-void addMinimizationClause(SATSolver_t *solver, nodeInt_t *clause);
+void add_clause(SATSolver_t *solver, nodeInt_t *clause);
+void add_minimization_clause(SATSolver_t *solver, nodeInt_t *clause);
 int solve(SATSolver_t *solver);
-int solve(SATSolver_t *solver, nodeInt_t *assumptions);
-void free(SATSolver_t *solver);
+int solve_with_assumptions(SATSolver_t *solver, nodeInt_t *assumptions);
+void free_solver(SATSolver_t *solver);
 
 #endif

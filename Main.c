@@ -6,25 +6,25 @@
 #include "Actives.h"
 
 int main() {
-	argumentInitTemp_t* head = setUpInitialization(4);
-	addAttack(head, 1, 2);
-	addAttack(head, 1, 3);
+	argumentInitTemp_t* head = set_up_initialization(4);
+	add_attack(head, 1, 2);
+	add_attack(head, 1, 3);
 	//addAttack(head, 3, 1);
-	addAttack(head, 4, 1);
-	argFramework_t* framework = initializeFramework(head);
+	add_attack(head, 4, 1);
+	argFramework_t* framework = initialize_framework(head);
 
 	printf("Attackers");
-	printMatrix(framework->attackers);
+	print_matrix(framework->attackers);
 	printf("Victims");
-	printMatrix(framework->victims);
+	print_matrix(framework->victims);
 
-	matrix_t *actives = initializeActives(4);
+	matrix_t *actives = initialize_actives(4);
 	printf("\n Active Arguments: base");
-	printMatrix(actives);
+	print_matrix(actives);
 
-	matrix_t *reduct = getReduct(actives, framework, 2);
+	matrix_t *reduct = get_reduct(actives, framework, 2);
 	printf("\n Active Arguments: reducted by 2");
-	printMatrix(reduct);
+	print_matrix(reduct);
 
 	/*matrix_t *reduct2 = getReduct(reduct, framework, 3);
 	printf("\n Active Arguments: reducted by 3");

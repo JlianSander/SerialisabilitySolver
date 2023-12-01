@@ -83,5 +83,8 @@
     <ClInclude Include="ExternalSatSolver.h">
       <Filter>Header Files\SATSolver</Filter>
     </ClInclude>
+    <ClInclude Include="Encodings.h">
+      <Filter>Header Files\SATSolver</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

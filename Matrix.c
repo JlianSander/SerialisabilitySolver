@@ -28,7 +28,7 @@ static uint32_t ** createRows(uint32_t numRows) {
 }
 
 
-matrix_t * createMatrix(uint32_t numRows, uint32_t numColumns) {
+matrix_t * create_matrix(uint32_t numRows, uint32_t numColumns) {
 	matrix_t *matrix = NULL;
 	matrix = malloc(sizeof *matrix );
 	if (matrix == NULL) {
@@ -46,9 +46,9 @@ matrix_t * createMatrix(uint32_t numRows, uint32_t numColumns) {
 	}
 }
 
-matrix_t * copyMatrix(matrix_t *matrix)
+matrix_t * copy_matrix(matrix_t *matrix)
 {
-	matrix_t *newMatrix = createMatrix(matrix->numberRows, matrix->numberColumns);
+	matrix_t *newMatrix = create_matrix(matrix->numberRows, matrix->numberColumns);
 	for (uint32_t i = 0; i < newMatrix->numberRows; i++) {
 		for (uint32_t j = 0; j < newMatrix->numberColumns; j++)
 		{
@@ -58,7 +58,7 @@ matrix_t * copyMatrix(matrix_t *matrix)
 	return newMatrix;
 }
 
-uint8_t freeMatrix(matrix_t *matrix) {
+uint8_t free_matrix(matrix_t *matrix) {
 	for ( uint32_t i = 0; i < matrix->numberRows; i++) {
 		free(matrix->content[i]);
 	}
@@ -67,7 +67,7 @@ uint8_t freeMatrix(matrix_t *matrix) {
 	return EXIT_SUCCESS;
 }
 
-uint8_t printMatrix(matrix_t *matrix) {
+uint8_t print_matrix(matrix_t *matrix) {
 	printf("\n=====================\nMatrix\nNumber of Rows: %d\nNumber of Collumns: %d\n", matrix->numberRows, matrix->numberColumns);
 	for (int i = 0; i < matrix->numberRows; i++) {
 		for (int j = 0; j < matrix->numberColumns; j++) {
