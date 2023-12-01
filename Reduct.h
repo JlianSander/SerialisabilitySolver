@@ -14,6 +14,6 @@
 /// <param name="framework">The framework to reduce.</param>
 /// <param name="argument">The argument, by which the framework will be reduced.</param>
 /// <returns>Set of active arguments in the new transition state after the reduction.</returns>
-matrix_t * get_reduct(matrix_t *activeArguments, argFramework_t *framework, uint32_t argument);
+activeArgs_t* get_reduct(activeArgs_t *activeArguments, argFramework_t *framework, uint32_t argument);
 
 #endif

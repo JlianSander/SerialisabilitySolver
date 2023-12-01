@@ -11,12 +11,12 @@
 /// <returns>A new linked sparse matrix, which entries are all 0;</returns>
 matrix_t *create_linked_sparse_matrix(uint32_t row, uint32_t column);
 /// <summary>
-/// Returns the index of the next cell which is not 0 in the specified row or -1 if no further cell is set.
+/// Returns the index of the next cell which is not 0 in the specified row. Returns 0 if no next cell exists.
 /// </summary>
 /// <param name="matrix">The linked sparse matrix-</param>
 /// <param name="row">Index to access the specified row in the matrix.</param>
 /// <param name="currentCell">The currently pointed cell. For initial call use '0'.</param>
-/// <returns>Index of the next cell which is != 0</returns>
+/// <returns>Index of the next cell which is != 0, or 0 if no next cell exists</returns>
 uint32_t get_next_in_row(matrix_t *matrix, uint32_t row, uint32_t currentCell);
 /// <summary>
 /// Signals if there is a cell in the specified row further right than the one specified, which is set to non 0. 

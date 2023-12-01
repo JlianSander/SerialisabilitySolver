@@ -30,6 +30,12 @@ typedef struct listInt {
 /// <returns>Number of nodes in the specified list.</returns>
  uint32_t count_list(nodeInt_t* head);
  /// <summary>
+ /// Creates a list of integers.
+ /// </summary>
+ /// <param name="number">First number to be added to the list.</param>
+ /// <returns>Head-Node of the new created list.</returns>
+ nodeInt_t* create_list(uint32_t number);
+ /// <summary>
 /// Deallocates the memory space of a specified list. 
 /// </summary>
 /// <param name="head">The first node of the list.</param>

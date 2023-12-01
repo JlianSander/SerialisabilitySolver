@@ -15,6 +15,21 @@ uint32_t count_list(nodeInt_t *head)
     return count;
 }
 
+nodeInt_t *create_list(uint32_t number)
+{
+    nodeInt_t *head = NULL;
+    head = malloc(sizeof *head);
+    if (head == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    else {
+        head->next = NULL;
+        head->number = number;
+        return head;
+    }
+}
+
 uint8_t free_list(nodeInt_t *head)
 {
     nodeInt_t *current = head;

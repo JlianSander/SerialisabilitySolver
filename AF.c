@@ -39,17 +39,7 @@ static uint8_t updateVictim(argumentInitTemp_t *head, uint32_t attacker, uint32_
 
 		if (current->listAttackers == NULL) {
 			//initialize list of attackers
-			nodeInt_t *firstAttacker = NULL;
-			firstAttacker = malloc( sizeof *firstAttacker );
-			if (firstAttacker == NULL) {
-				printf("Memory allocation failed\n");
-				exit(1);
-			}
-			else {
-				firstAttacker->next = NULL;
-				firstAttacker->number = attacker;
-				current->listAttackers = firstAttacker;
-			}
+			current->listAttackers = create_list(attacker);
 		}
 		else {
 			push(current->listAttackers, attacker);
@@ -76,17 +66,7 @@ static uint8_t updateAttacker(argumentInitTemp_t *head, uint32_t attacker, uint3
 
 		if (current->listVictims == NULL) {
 			//initialize list of victims
-			nodeInt_t *firstVictim = NULL;
-			firstVictim = malloc(sizeof *firstVictim);
-			if (firstVictim == NULL) {
-				printf("Memory allocation failed\n");
-				exit(1);
-			}
-			else {
-				firstVictim->next = NULL;
-				firstVictim->number = victim;
-				current->listVictims = firstVictim;
-			}
+			current->listVictims = create_list(victim);
 		}
 		else {
 			push(current->listVictims, victim);

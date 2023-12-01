@@ -3,19 +3,7 @@
 #include <stdlib.h>
 #include "Matrix.h"
 
-static uint32_t * createOneRow(uint32_t numColumns) {
-	uint32_t *row = NULL;
-	row = calloc(numColumns, sizeof *row );
-	if (row == NULL) {
-		printf("Memory allocation failed\n");
-		exit(1);
-	}
-	else {
-		return row;
-	}
-}
-
-static uint32_t ** createRows(uint32_t numRows) {
+static uint32_t ** create_rows(uint32_t numRows) {
 	uint32_t **matrix = NULL;
 	matrix = calloc(numRows, sizeof *matrix );
 	if (matrix == NULL) {
@@ -38,9 +26,9 @@ matrix_t * create_matrix(uint32_t numRows, uint32_t numColumns) {
 	else {
 		matrix->numberRows = numRows;
 		matrix->numberColumns = numColumns;
-		matrix->content = createRows(numRows);
+		matrix->content = create_rows(numRows);
 		for (uint32_t i = 0; i < numRows; i++) {
-			matrix->content[i] = createOneRow(numColumns);
+			matrix->content[i] = create_array(numColumns);
 		}
 		return matrix;
 	}

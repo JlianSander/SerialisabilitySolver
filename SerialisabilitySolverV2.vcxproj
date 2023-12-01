@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Actives.c" />
     <ClCompile Include="AF.c" />
+    <ClCompile Include="Encodings.c" />
     <ClCompile Include="ExternalSatSolver.c" />
     <ClCompile Include="LinkedSparseMatrix.c" />
     <ClCompile Include="LinkedSparseMatrix.h" />
@@ -32,6 +33,8 @@
   <ItemGroup>
     <ClInclude Include="Actives.h" />
     <ClInclude Include="AF.h" />
+    <ClInclude Include="Array.c" />
+    <ClInclude Include="Array.h" />
     <ClInclude Include="Encodings.h" />
     <ClInclude Include="ExternalSatSolver.h" />
     <ClInclude Include="Reduct.h" />

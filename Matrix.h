@@ -2,6 +2,7 @@
 #define MATRIX_H
 
 #include <stdint.h>
+#include "Array.h"
 
 typedef struct matrix {
     uint32_t **content;
