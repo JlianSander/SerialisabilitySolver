@@ -1,11 +1,11 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdint.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include "Actives.h"
+//#include "List.h"
+//#include "Matrix.h"
+//#include "LinkedSparseMatrix.h"
 #include "AF.h"
-#include "Actives.h"
-#include "List.h"
-#include "Matrix.h"
-#include "LinkedSparseMatrix.h"
 
 static uint8_t goToArgument(argumentInitTemp_t *head, uint32_t argument, argumentInitTemp_t **resultByRef)
 {

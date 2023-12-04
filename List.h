@@ -1,6 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <stdlib.h>
 #include <stdint.h>
 
 // This line is necessary to inform the compiler of the type, 

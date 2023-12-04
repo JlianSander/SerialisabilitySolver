@@ -1,7 +1,21 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
+//#include <stdint.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include "Array.h"
 #include "Matrix.h"
+
+static uint32_t *create_row(uint32_t length)
+{
+	uint32_t *elements = NULL;
+	elements = (uint32_t *)calloc(length, sizeof * elements);
+	if (elements == NULL) {
+		printf("Memory allocation failed\n");
+		exit(1);
+	}
+	else {
+		return elements;
+	}
+}
 
 static uint32_t ** create_rows(uint32_t numRows) {
 	uint32_t **matrix = NULL;
@@ -28,7 +42,7 @@ matrix_t * create_matrix(uint32_t numRows, uint32_t numColumns) {
 		matrix->numberColumns = numColumns;
 		matrix->content = create_rows(numRows);
 		for (uint32_t i = 0; i < numRows; i++) {
-			matrix->content[i] = create_array(numColumns);
+			matrix->content[i] = create_row(numColumns);
 		}
 		return matrix;
 	}
@@ -57,8 +71,8 @@ uint8_t free_matrix(matrix_t *matrix) {
 
 uint8_t print_matrix(matrix_t *matrix) {
 	printf("\n=====================\nMatrix\nNumber of Rows: %d\nNumber of Collumns: %d\n", matrix->numberRows, matrix->numberColumns);
-	for (int i = 0; i < matrix->numberRows; i++) {
-		for (int j = 0; j < matrix->numberColumns; j++) {
+	for (uint32_t i = (uint32_t) 0; i < matrix->numberRows; i++) {
+		for (uint32_t j = (uint32_t) 0; j < matrix->numberColumns; j++) {
 			printf("%d\t", matrix->content[i][j]);
 		}
 		printf("\n");

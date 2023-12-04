@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Matrix.h"
+#include "Array.h"
 
 ///<summary>
 /// Data structure enregistering which argument is active 
@@ -89,5 +90,10 @@ activeArgs_t * initialize_actives(uint32_t numberOfArguments);
 /// <param name="argument">The argument to be checked.</param>
 /// <returns>Returns EXIT_SUCCESS iff specified argument is active; Returns EXIT_FAILURE otherwise</returns>
 bool is_active(activeArgs_t *activeArguments, uint32_t argument);
+/// <summary>
+/// Prints the specified active arguments to the standard output stream.
+/// </summary>
+/// <param name="activeArguments">Active arguments, which shall be printed.</param>
+void print_active_arguments(activeArgs_t *activeArguments);
 
 #endif

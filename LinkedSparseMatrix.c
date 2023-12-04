@@ -1,7 +1,7 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
+//#include <stdint.h>
+//#include <stdio.h>
+//#include <stdbool.h>
+//#include <stdlib.h>
 #include "LinkedSparseMatrix.h"
 
 matrix_t *create_linked_sparse_matrix(uint32_t row, uint32_t column) {

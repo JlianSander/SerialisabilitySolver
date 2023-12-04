@@ -1,9 +1,8 @@
-
-#include <stdio.h>
-#include <stdint.h>
-#include <stdbool.h>
-#include <string.h>
-#include "List.h"
+//#include <stdio.h>
+//#include <stdint.h>
+//#include <stdbool.h>
+//#include <string.h>
+//#include "List.h"
 #include "ExternalSatSolver.h"
 
 void assume(SATSolver_t *solver, uint32_t literal)

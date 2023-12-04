@@ -33,7 +33,9 @@
   <ItemGroup>
     <ClInclude Include="Actives.h" />
     <ClInclude Include="AF.h" />
-    <ClInclude Include="Array.c" />
+    <ClCompile Include="Array.c">
+      <FileType>CppCode</FileType>
+    </ClCompile>
     <ClInclude Include="Array.h" />
     <ClInclude Include="Encodings.h" />
     <ClInclude Include="ExternalSatSolver.h" />

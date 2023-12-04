@@ -1,4 +1,9 @@
-
+//#include <stdint.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include <stdbool.h>
+//#include "Array.h"
+//#include "Matrix.h"
 #include "Actives.h"
 
 activeArgs_t *create_active_arguments(uint32_t numberArguments, uint32_t numberActiveArguments)
@@ -10,7 +15,7 @@ activeArgs_t *create_active_arguments(uint32_t numberArguments, uint32_t numberA
 		exit(1);
 	}
 	else {
-		activeArgs->numberActiveArguments = numberArguments;
+		activeArgs->numberActiveArguments = numberActiveArguments;
 		activeArgs->matrix = create_matrix(numberArguments + 1, 3);
 		activeArgs->encodingToArgument = create_array(numberActiveArguments + 1);
 		return activeArgs;
@@ -19,7 +24,7 @@ activeArgs_t *create_active_arguments(uint32_t numberArguments, uint32_t numberA
 
 activeArgs_t *copy_active_arguments(activeArgs_t *original)
 {
-	activeArgs_t *activeArgs = create_active_arguments(original->matrix->numberRows, original->numberActiveArguments);
+	activeArgs_t *activeArgs = create_active_arguments(original->matrix->numberRows - 1, original->numberActiveArguments);
 
 	activeArgs->matrix->content[0][1] = original->matrix->content[0][1];
 	uint32_t idxArgument = 0;
@@ -28,7 +33,7 @@ activeArgs_t *copy_active_arguments(activeArgs_t *original)
 		idxArgument = get_next(original, idxArgument);
 		activeArgs->matrix->content[idxArgument][0] = original->matrix->content[idxArgument][0];
 		activeArgs->matrix->content[idxArgument][1] = original->matrix->content[idxArgument][1];
-		activeArgs->matrix->content[idxArgument][2] = original->matrix->content[idxArgument][3];
+		activeArgs->matrix->content[idxArgument][2] = original->matrix->content[idxArgument][2];
 	}
 
 	activeArgs->encodingToArgument = copy_array(original->encodingToArgument);
@@ -62,23 +67,25 @@ uint8_t deactivate_argument(activeArgs_t *activeArguments, uint32_t argument)
 	matrix[argument][0] = 0;
 	matrix[argument][1] = 0;
 	matrix[argument][2] = 0;
+	activeArguments->numberActiveArguments --;
 
-	arrayInt_t *newEncoding = create_array(activeArguments->numberActiveArguments - 1);
-	for (int i = 1; i < activeArguments->numberActiveArguments - 1 + 1; i++)
+	arrayInt_t *newEncoding = create_array(activeArguments->numberActiveArguments + 1);
+	arrayInt_t *oldEncoding = activeArguments->encodingToArgument;
+	for (uint32_t i = (uint32_t) 1; i < oldEncoding->length; i++)
 	{
-		if (activeArguments->encodingToArgument->elements[i] < argument)
+		if (oldEncoding->elements[i] < argument)
 		{
 			//arguments before the argument to deactivate
-			newEncoding->elements[i] = activeArguments->encodingToArgument->elements[i];
+			newEncoding->elements[i] = oldEncoding->elements[i];
 		}
-		else if (activeArguments->encodingToArgument->elements[i] > argument)
+		else if (oldEncoding->elements[i] > argument)
 		{
 			//arguments after the argument to deactivate
-			newEncoding->elements[i - 1] = activeArguments->encodingToArgument->elements[i]; //i - 1 since gap of argument to deactive gets filled
-			matrix[activeArguments->encodingToArgument->elements[i]][2] = i - 1;
+			newEncoding->elements[i - 1] = oldEncoding->elements[i]; //i - 1 since gap of argument to deactive gets filled
+			matrix[oldEncoding->elements[i]][2] = i - 1;
 		}
 	}
-	free_array(activeArguments->encodingToArgument);
+	free_array(oldEncoding);
 	activeArguments->encodingToArgument = newEncoding;
 
 	return EXIT_SUCCESS;
@@ -103,6 +110,14 @@ uint32_t get_next(activeArgs_t *activeArguments, uint32_t argument)
 uint32_t get_predecessor(activeArgs_t *activeArguments, uint32_t argument)
 {
 	return activeArguments->matrix->content[argument][0];
+}
+
+bool has_next(activeArgs_t *activeArguments, uint32_t argument) {
+	return activeArguments->matrix->content[argument][1] != argument;
+}
+
+bool has_predecessor(activeArgs_t *activeArguments, uint32_t argument) {
+	return activeArguments->matrix->content[argument][0] != argument;
 }
 
 activeArgs_t* initialize_actives(uint32_t numberOfArguments)
@@ -147,10 +162,11 @@ bool is_active(activeArgs_t *activeArguments, uint32_t argument)
 	}
 }
 
-bool has_next(activeArgs_t *activeArguments, uint32_t argument) {
-	return activeArguments->matrix->content[argument][1] != argument;
-}
-
-bool has_predecessor(activeArgs_t *activeArguments, uint32_t argument) {
-	return activeArguments->matrix->content[argument][0] != argument;
+void print_active_arguments(activeArgs_t *activeArguments)
+{
+	printf("\n=== active Arguments ===\n");
+	printf("Number of active arguments: %d", activeArguments->numberActiveArguments);
+	print_matrix(activeArguments->matrix);
+	printf("- encodings -");
+	print_array(activeArguments->encodingToArgument);
 }

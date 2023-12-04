@@ -1,11 +1,11 @@
-#ifndef AFREDUCT_H
-#define AFREDUCT_H
+#ifndef REDUCT_H
+#define REDUCT_H
 
 #include <stdint.h>
 #include "AF.h"
-#include "List.h"
-#include "Matrix.h"
-#pragma once
+//#include "List.h"
+//#include "Matrix.h"
+#include "Actives.h"
 
 /// <summary>
 /// Reduces the specified framework, using the specified set of active arguments by the specified argument.

@@ -2,8 +2,12 @@
 #define AF_H
 
 #include <stdint.h>
-#include "Matrix.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "Actives.h"
 #include "List.h"
+#include "Matrix.h"
+#include "LinkedSparseMatrix.h"
 
 // This line is necessary to inform the compiler of the type, 
 // which allows to recursively call the struct in it's own type definition

@@ -1,12 +1,12 @@
-#include <stdint.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include "AF.h"
+//#include <stdint.h>
+//#include <stdio.h>
+//#include <stdlib.h>
+//#include "AF.h"
+//#include "List.h"
+//#include "Matrix.h"
+//#include "Actives.h"
+//#include "LinkedSparseMatrix.h"
 #include "Reduct.h"
-#include "List.h"
-#include "Matrix.h"
-#include "Actives.h"
-#include "LinkedSparseMatrix.h"
 
 activeArgs_t* get_reduct(activeArgs_t *activeArguments, argFramework_t *framework, uint32_t argument)
 {

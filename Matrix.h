@@ -2,6 +2,8 @@
 #define MATRIX_H
 
 #include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "Array.h"
 
 typedef struct matrix {

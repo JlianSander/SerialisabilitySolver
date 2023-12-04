@@ -66,6 +66,9 @@
     <ClCompile Include="Encodings.c">
       <Filter>Source Files\SATSolver</Filter>
     </ClCompile>
+    <ClCompile Include="Array.c">
+      <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="List.h">
@@ -88,9 +91,6 @@
     </ClInclude>
     <ClInclude Include="Encodings.h">
       <Filter>Header Files\SATSolver</Filter>
-    </ClInclude>
-    <ClInclude Include="Array.c">
-      <Filter>Source Files\Utilities</Filter>
     </ClInclude>
     <ClInclude Include="Array.h">
       <Filter>Header Files\Utilities</Filter>
