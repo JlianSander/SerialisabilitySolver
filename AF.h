@@ -20,8 +20,8 @@ typedef struct argumentInitTemp argumentInitTemp_t;
 /// </summary>
 typedef struct argumentInitTemp {
     uint32_t number;
-    nodeInt_t *listAttackers;
-    nodeInt_t *listVictims;
+    nodeUInt32_t *listAttackers;
+    nodeUInt32_t *listVictims;
     argumentInitTemp_t *next;
 } argumentInitTemp_t;
 

@@ -11,14 +11,19 @@ matrix_t *create_linked_sparse_matrix(uint32_t row, uint32_t column) {
 	return matrix;
 }
 
+uint32_t get_first_in_row(matrix_t *matrix, uint32_t row)
+{
+	return get_next_in_row(matrix, row, 0);
+}
+
 uint32_t get_next_in_row(matrix_t *matrix, uint32_t row, uint32_t currentCell) {
 	if (has_next_in_row(matrix, row, currentCell) == false)
 	{
-		return 0;
+		return (uint32_t) 0;
 	}
 	else 
 	{
-		matrix->content[row][currentCell];
+		return matrix->content[row][currentCell];
 	}	
 }
 

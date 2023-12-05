@@ -11,6 +11,13 @@
 /// <returns>A new linked sparse matrix, which entries are all 0;</returns>
 matrix_t *create_linked_sparse_matrix(uint32_t row, uint32_t column);
 /// <summary>
+/// Returns the first cell in the row which is not 0. Returns 0 if no cell is set.
+/// </summary>
+/// <param name="matrix">The linked sparse matrix-</param>
+/// <param name="row">Index to access the specified row in the matrix.</param>
+/// <returns>Index of the first cell in the row, which is not 0. Returns 0 if no cell is set.</returns>
+uint32_t get_first_in_row(matrix_t *matrix, uint32_t row);
+/// <summary>
 /// Returns the index of the next cell which is not 0 in the specified row. Returns 0 if no next cell exists.
 /// </summary>
 /// <param name="matrix">The linked sparse matrix-</param>

@@ -3,9 +3,9 @@
 #include "List.h"
 
 
-uint32_t count_list(nodeInt_t *head)
+uint32_t count_list_uint32(nodeUInt32_t *head)
 {
-    nodeInt_t *current = head;
+    nodeUInt32_t *current = head;
      uint32_t count = 1;
     while (current->next != NULL) { // iterate to end of list
         current = current->next;
@@ -15,9 +15,9 @@ uint32_t count_list(nodeInt_t *head)
     return count;
 }
 
-nodeInt_t *create_list(uint32_t number)
+nodeUInt32_t *create_list_uint32(uint32_t number)
 {
-    nodeInt_t *head = NULL;
+    nodeUInt32_t *head = NULL;
     head = malloc(sizeof *head);
     if (head == NULL) {
         printf("Memory allocation failed\n");
@@ -30,10 +30,41 @@ nodeInt_t *create_list(uint32_t number)
     }
 }
 
-uint8_t free_list(nodeInt_t *head)
+nodeInt64_t *create_list_int64(int64_t number)
 {
-    nodeInt_t *current = head;
-    nodeInt_t *next = current->next;
+    nodeInt64_t *head = NULL;
+    head = malloc(sizeof * head);
+    if (head == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    else {
+        head->next = NULL;
+        head->number = number;
+        return head;
+    }
+}
+
+listInt64_t* create_list_list_int64(nodeInt64_t *element)
+{
+    listInt64_t *head = NULL;
+    head = malloc(sizeof * head);
+    if (head == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    else {
+        head->list = element;
+        head->next = NULL;
+
+        return EXIT_SUCCESS;
+    }
+}
+
+uint8_t free_list_uint32(nodeUInt32_t *head)
+{
+    nodeUInt32_t *current = head;
+    nodeUInt32_t *next = current->next;
 
     while (next != NULL)
     {
@@ -46,32 +77,48 @@ uint8_t free_list(nodeInt_t *head)
     return EXIT_SUCCESS;
 }
 
-uint8_t free_list_of_list(listInt_t *head) 
+uint8_t free_list_int64(nodeInt64_t *head)
 {
-    listInt_t *current = head;
-    listInt_t *next = current->next;
+    nodeInt64_t *current = head;
+    nodeInt64_t *next = current->next;
 
     while (next != NULL)
     {
-        free_list(current->element);
         free(current);
         current = next;
         next = current->next;
     }
-    free_list(current->element);
     free(current);
 
     return EXIT_SUCCESS;
 }
 
-uint8_t push(nodeInt_t *head, uint32_t number)
+uint8_t free_list_list_int64(listInt64_t *head)
 {
-    nodeInt_t *current = head;
+    listInt64_t *current = head;
+    listInt64_t *next = current->next;
+
+    while (next != NULL)
+    {
+        free_list_int64(current->list);
+        free(current);
+        current = next;
+        next = current->next;
+    }
+    free_list_int64(current->list);
+    free(current);
+
+    return EXIT_SUCCESS;
+}
+
+uint8_t push_uint32(nodeUInt32_t *head, uint32_t number)
+{
+    nodeUInt32_t *current = head;
     while (current -> next != NULL) { // iterate to end of list
         current = current -> next;
     }
 
-    nodeInt_t *ptrNode = NULL;
+    nodeUInt32_t *ptrNode = NULL;
     ptrNode = malloc(sizeof *ptrNode );
     if (ptrNode == NULL) {
         printf("Memory allocation failed\n");
@@ -87,14 +134,37 @@ uint8_t push(nodeInt_t *head, uint32_t number)
     }
 }
 
-uint8_t push_list(listInt_t *head, nodeInt_t *element) 
+uint8_t push_int64(nodeInt64_t *head, int64_t number)
 {
-    listInt_t *current = head;
+    nodeInt64_t *current = head;
     while (current->next != NULL) { // iterate to end of list
         current = current->next;
     }
 
-    listInt_t *ptrNode = NULL;
+    nodeInt64_t *ptrNode = NULL;
+    ptrNode = malloc(sizeof *ptrNode );
+    if (ptrNode == NULL) {
+        printf("Memory allocation failed\n");
+        exit(1);
+    }
+    else {
+        current->next = ptrNode;
+        current = current->next;
+        current->number = number;
+        current->next = NULL;
+
+        return EXIT_SUCCESS;
+    }
+}
+
+uint8_t push_list_int64(listInt64_t *head, nodeInt64_t *list)
+{
+    listInt64_t *current = head;
+    while (current->next != NULL) { // iterate to end of list
+        current = current->next;
+    }
+
+    listInt64_t *ptrNode = NULL;
     ptrNode = malloc(sizeof *ptrNode);
     if (ptrNode == NULL) {
         printf("Memory allocation failed\n");
@@ -103,7 +173,7 @@ uint8_t push_list(listInt_t *head, nodeInt_t *element)
     else {
         current->next = ptrNode;
         current = current->next;
-        current->element = element;
+        current->list = list;
         current->next = NULL;
 
         return EXIT_SUCCESS;

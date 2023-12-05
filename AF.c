@@ -39,10 +39,10 @@ static uint8_t updateVictim(argumentInitTemp_t *head, uint32_t attacker, uint32_
 
 		if (current->listAttackers == NULL) {
 			//initialize list of attackers
-			current->listAttackers = create_list(attacker);
+			current->listAttackers = create_list_uint32(attacker);
 		}
 		else {
-			push(current->listAttackers, attacker);
+			push_uint32(current->listAttackers, attacker);
 		}
 		return EXIT_SUCCESS;
 	}
@@ -66,10 +66,10 @@ static uint8_t updateAttacker(argumentInitTemp_t *head, uint32_t attacker, uint3
 
 		if (current->listVictims == NULL) {
 			//initialize list of victims
-			current->listVictims = create_list(victim);
+			current->listVictims = create_list_uint32(victim);
 		}
 		else {
-			push(current->listVictims, victim);
+			push_uint32(current->listVictims, victim);
 		}
 		return EXIT_SUCCESS;
 	}
@@ -100,7 +100,7 @@ static matrix_t* initializeAttackers(argumentInitTemp_t *head, uint32_t numberOf
 
 	while(current != NULL)
 	{
-		nodeInt_t *currentAttacker = current->listAttackers;
+		nodeUInt32_t *currentAttacker = current->listAttackers;
 		while(currentAttacker != NULL)
 		{
 			set_cell(matrix, current->number, currentAttacker->number);
@@ -119,7 +119,7 @@ static matrix_t* initializeVictims(argumentInitTemp_t *head, uint32_t numberOfAr
 
 	while (current != NULL)
 	{
-		nodeInt_t *currentVictim = current->listVictims;
+		nodeUInt32_t *currentVictim = current->listVictims;
 
 		while (currentVictim != NULL)
 		{
@@ -137,11 +137,11 @@ static uint8_t freeContent(argumentInitTemp_t *argument)
 {
 	uint8_t retVal = EXIT_SUCCESS;
 	if (argument->listAttackers != NULL) {
-		retVal = free_list(argument->listAttackers);
+		retVal = free_list_uint32(argument->listAttackers);
 	}
 
 	if (argument->listVictims != NULL) {
-		retVal = retVal || free_list(argument->listVictims);
+		retVal = retVal || free_list_uint32(argument->listVictims);
 	}
 
 	return retVal;

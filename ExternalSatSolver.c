@@ -5,25 +5,25 @@
 //#include "List.h"
 #include "ExternalSatSolver.h"
 
-void assume(SATSolver_t *solver, uint32_t literal)
+void assume(SATSolver_t *solver, int64_t literal)
 {
-	push(solver->assumptions, literal);
+	push_int64(solver->assumptions, literal);
 }
 
-void add_clause(SATSolver_t *solver, nodeInt_t *clause)
+void add_clause(SATSolver_t *solver, nodeInt64_t *clause)
 {
-	push_list(solver->clauses, clause);
+	push_list_int64(solver->clauses, clause);
 }
 
-void add_minimization_clause(SATSolver_t *solver, nodeInt_t *clause)
+void add_minimization_clause(SATSolver_t *solver, nodeInt64_t *clause)
 {
-	push_list(solver->minimizationClauses, clause);
+	push_list_int64(solver->minimizationClauses, clause);
 }
 
 void free_solver(SATSolver_t *solver)
 {
-	free_list(solver->model);
-	free_list_of_list(solver->clauses);
-	free_list_of_list(solver->minimizationClauses);
-	free_list(solver->assumptions);
+	free_list_int64(solver->model);
+	free_list_list_int64(solver->clauses);
+	free_list_list_int64(solver->minimizationClauses);
+	free_list_int64(solver->assumptions);
 }

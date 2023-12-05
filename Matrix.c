@@ -70,13 +70,14 @@ uint8_t free_matrix(matrix_t *matrix) {
 }
 
 uint8_t print_matrix(matrix_t *matrix) {
-	printf("\n=====================\nMatrix\nNumber of Rows: %d\nNumber of Collumns: %d\n", matrix->numberRows, matrix->numberColumns);
+	//printf("\n------------------\nMatrix\nNumber of Rows: %d\nNumber of Collumns: %d\n", matrix->numberRows, matrix->numberColumns);
+	printf("\n");
 	for (uint32_t i = (uint32_t) 0; i < matrix->numberRows; i++) {
 		for (uint32_t j = (uint32_t) 0; j < matrix->numberColumns; j++) {
 			printf("%d\t", matrix->content[i][j]);
 		}
 		printf("\n");
 	}
-	printf("=====================\n");
+	//printf("------------------\n");
 }
 

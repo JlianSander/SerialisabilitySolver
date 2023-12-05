@@ -28,9 +28,9 @@ activeArgs_t *copy_active_arguments(activeArgs_t *original)
 
 	activeArgs->matrix->content[0][1] = original->matrix->content[0][1];
 	uint32_t idxArgument = 0;
-	while (has_next(original, idxArgument))
+	while (has_next_active(original, idxArgument))
 	{
-		idxArgument = get_next(original, idxArgument);
+		idxArgument = get_next_active(original, idxArgument);
 		activeArgs->matrix->content[idxArgument][0] = original->matrix->content[idxArgument][0];
 		activeArgs->matrix->content[idxArgument][1] = original->matrix->content[idxArgument][1];
 		activeArgs->matrix->content[idxArgument][2] = original->matrix->content[idxArgument][2];
@@ -102,21 +102,26 @@ uint8_t free_activeArguments(activeArgs_t *activeArguments)
 	return EXIT_SUCCESS;
 }
 
-uint32_t get_next(activeArgs_t *activeArguments, uint32_t argument)
+uint32_t get_first_active(activeArgs_t *activeArguments)
+{
+	return get_next_active(activeArguments, 0);
+}
+
+uint32_t get_next_active(activeArgs_t *activeArguments, uint32_t argument)
 {
 	return activeArguments->matrix->content[argument][1];
 }
 
-uint32_t get_predecessor(activeArgs_t *activeArguments, uint32_t argument)
+uint32_t get_predecessor_active(activeArgs_t *activeArguments, uint32_t argument)
 {
 	return activeArguments->matrix->content[argument][0];
 }
 
-bool has_next(activeArgs_t *activeArguments, uint32_t argument) {
+bool has_next_active(activeArgs_t *activeArguments, uint32_t argument) {
 	return activeArguments->matrix->content[argument][1] != argument;
 }
 
-bool has_predecessor(activeArgs_t *activeArguments, uint32_t argument) {
+bool has_predecessor_active(activeArgs_t *activeArguments, uint32_t argument) {
 	return activeArguments->matrix->content[argument][0] != argument;
 }
 
