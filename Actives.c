@@ -169,9 +169,9 @@ bool is_active(activeArgs_t *activeArguments, uint32_t argument)
 
 void print_active_arguments(activeArgs_t *activeArguments)
 {
-	printf("\n=== active Arguments ===\n");
-	printf("Number of active arguments: %d", activeArguments->numberActiveArguments);
+	printf("=== active Arguments ===\n");
+	printf("Number of active arguments: %d\n", activeArguments->numberActiveArguments);
 	print_matrix(activeArguments->matrix);
-	printf("- encodings -");
+	printf("\n- encodings -\n");
 	print_array(activeArguments->encodingToArgument);
 }

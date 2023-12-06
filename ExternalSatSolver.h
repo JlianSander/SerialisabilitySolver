@@ -21,8 +21,9 @@ typedef struct SATSolver {
 void assume(SATSolver_t *solver, int64_t literal);
 void add_clause(SATSolver_t *solver, nodeInt64_t *clause);
 void add_minimization_clause(SATSolver_t *solver, nodeInt64_t *clause);
-int solve(SATSolver_t *solver);
-int solve_with_assumptions(SATSolver_t *solver, nodeInt64_t *assumptions);
+SATSolver_t* create_solver();
+//int solve(SATSolver_t *solver);
+//int solve_with_assumptions(SATSolver_t *solver, nodeInt64_t *assumptions);
 void free_solver(SATSolver_t *solver);
 
 #endif

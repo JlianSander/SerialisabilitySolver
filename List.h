@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
+#include <inttypes.h>
 
 // This line is necessary to inform the compiler of the type, 
 // which allows to recursively call the struct in it's own type definition
@@ -101,5 +102,23 @@ typedef struct listInt64 {
 /// <param name="list">List to add.</param>
 /// <returns>EXIT_SUCCESS iff the operation was successful.</returns>
  uint8_t push_list_int64(listInt64_t *head, nodeInt64_t *list);
+ /// <summary>
+ /// Prints the specified list on the standard output stream.
+ /// </summary>
+ /// <param name="head">Head of the list to print.</param>
+ /// <returns>EXIT_SUCCESS iff the operation was successful.</returns>
+ uint8_t print_list_uint32(nodeUInt32_t *head);
+ /// <summary>
+ /// Prints the specified list on the standard output stream.
+ /// </summary>
+ /// <param name="head">Head of the list to print.</param>
+ /// <returns>EXIT_SUCCESS iff the operation was successful.</returns>
+ uint8_t print_list_int64(nodeInt64_t *head);
+ /// <summary>
+ /// Prints the specified list of lists on the standard output stream.
+ /// </summary>
+ /// <param name="head">Head of the list of lists to print.</param>
+ /// <returns>EXIT_SUCCESS iff the operation was successful.</returns>
+ uint8_t print_list_list_int64(listInt64_t *head);
 
 #endif

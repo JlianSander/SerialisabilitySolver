@@ -54,10 +54,10 @@ uint8_t free_array(arrayInt_t *array)
 void print_array(arrayInt_t *array)
 {
 	//printf("\n==\n");
-	printf("\n");
 	for (uint32_t i = (uint32_t) 0; i < array->length; i++)
 	{
-		printf("[%d]\n", array->elements[i]);
+		printf("[%d]", array->elements[i]);
 	}
+	//printf("\n");
 	//printf("==\n");
 }

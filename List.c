@@ -57,7 +57,7 @@ listInt64_t* create_list_list_int64(nodeInt64_t *element)
         head->list = element;
         head->next = NULL;
 
-        return EXIT_SUCCESS;
+        return head;
     }
 }
 
@@ -177,5 +177,71 @@ uint8_t push_list_int64(listInt64_t *head, nodeInt64_t *list)
         current->next = NULL;
 
         return EXIT_SUCCESS;
+    }
+}
+
+uint8_t print_list_uint32(nodeUInt32_t *head)
+{
+    if (head == NULL)
+    {
+        return EXIT_FAILURE;
+    }
+    else 
+    {
+        nodeUInt32_t *current = head;
+        printf("{ ");
+        printf("%d", current->number);
+        while (current->next != NULL)
+        {
+            current = current->next;
+            printf(", %d", current->number);
+        }
+        printf(" }");
+        return EXIT_SUCCESS;
+    }
+}
+
+uint8_t print_list_int64(nodeInt64_t *head)
+{
+    if (head == NULL)
+    {
+        return EXIT_FAILURE;
+    }
+    else
+    {
+        nodeInt64_t *current = head;
+        printf("{ ");
+        printf("%lld", current->number);
+        while (current->next != NULL)
+        {
+            current = current->next;
+            printf(", %lld", current->number);
+        }
+        printf(" }");
+        return EXIT_SUCCESS;
+    }
+}
+
+uint8_t print_list_list_int64(listInt64_t *head)
+{
+    {
+        if (head == NULL)
+        {
+            return EXIT_FAILURE;
+        }
+        else
+        {
+            listInt64_t *current = head;
+            printf("{ ");
+            print_list_int64(current->list);
+            while (current->next != NULL)
+            {
+                current = current->next;
+                printf(", ");
+                print_list_int64(current->list);
+            }
+            printf(" }");
+            return EXIT_SUCCESS;
+        }
     }
 }
