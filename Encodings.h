@@ -24,13 +24,20 @@ int64_t get_accepted_variable(activeArgs_t *activeArgs, uint32_t argument);
 /// <param name="argument">Argument, for whom the rejection variable shall be calculated.</param>
 /// <returns>The label of the rejection variable of the specified argument, used in the SAT encoding.</returns>
 int64_t get_rejected_variable(activeArgs_t *activeArgs, uint32_t argument);
-void add_complete(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs, uint32_t argument);
 /// <summary>
 /// Adds all clauses necessary to encode an initial set.
 /// </summary>
 /// <param name="solver">The solver, to whom the clauses will be added.</param>
 /// <param name="framework">The abstract argumentation framework, based upon which the attacks are analysed.</param>
 /// <param name="activeArgs">The set of active arguments, in the current state of the framework.</param>
-void add_clauses_IS(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs);
+void add_clauses_initial_set(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs);
+/// <summary>
+/// Adds all clauses necessary to encode a complete extension.
+/// </summary>
+/// <param name="solver"></param>
+/// <param name="framework"></param>
+/// <param name="activeArgs"></param>
+/// <param name="argument"></param>
+void add_clauses_complete_extension(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs, uint32_t argument);
 
 #endif

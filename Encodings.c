@@ -95,7 +95,7 @@ static void extend_nonempty(activeArgs_t *activeArgs, uint32_t argument, nodeInt
 	push_int64(existingClause, get_accepted_variable(activeArgs, argument));
 }
 
-void add_clauses_IS(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs)
+void add_clauses_initial_set(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs)
 {
 	uint32_t currentArgument = get_first_active(activeArgs);
 	if (currentArgument == 0)
@@ -105,13 +105,48 @@ void add_clauses_IS(SATSolver_t *solver, argFramework_t *framework, activeArgs_t
 
 	nodeInt64_t *non_empty_clause = create_list_int64(get_accepted_variable(activeArgs, currentArgument));
 	add_clause(solver, non_empty_clause);
+	add_admissible(solver, framework, activeArgs, currentArgument);
+	//iterate through all active arguments
+	while (has_next_active(activeArgs, currentArgument))
+	{
+		currentArgument = get_next_active(activeArgs, currentArgument);
+		extend_nonempty(activeArgs, currentArgument, non_empty_clause);
+		add_admissible(solver, framework, activeArgs, currentArgument);
+	}
+}
+
+static void add_complete_per_argument(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs, uint32_t argument)
+{
+	nodeInt64_t *clause = create_list_int64(get_accepted_variable(activeArgs, argument));
+	//iterate through all active attackers
+	uint32_t current_attacker = 0;
+	while (has_next_in_row(framework->attackers, argument, current_attacker))
+	{
+		current_attacker = get_next_in_row(framework->attackers, argument, current_attacker);
+		if (is_active(activeArgs, current_attacker))
+		{
+			push_int64(clause, -1 * get_rejected_variable(activeArgs, current_attacker));
+		}
+	}
+	add_clause(solver, clause);
+}
+
+void add_clauses_complete_extension(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs, uint32_t argument)
+{
+	uint32_t currentArgument = get_first_active(activeArgs);
+	if (currentArgument == 0)
+	{
+		return;
+	}
 
 	add_admissible(solver, framework, activeArgs, currentArgument);
+	add_complete_per_argument(solver, framework, activeArgs, argument);
+	//iterate through all active arguments
 	while (has_next_active(activeArgs, currentArgument))
 	{
 		currentArgument = get_next_active(activeArgs, currentArgument);
 		add_admissible(solver, framework, activeArgs, currentArgument);
-		extend_nonempty(activeArgs, currentArgument, non_empty_clause);
+		add_complete_per_argument(solver, framework, activeArgs, argument);
 	}
 }
 
