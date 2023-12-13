@@ -95,7 +95,7 @@ static void extend_nonempty(activeArgs_t *activeArgs, uint32_t argument, nodeInt
 	push_int64(existingClause, get_accepted_variable(activeArgs, argument));
 }
 
-void add_clauses_initial_set(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs)
+void add_clauses_nonempty_admissible_set(SATSolver_t *solver, argFramework_t *framework, activeArgs_t *activeArgs)
 {
 	uint32_t currentArgument = get_first_active(activeArgs);
 	if (currentArgument == 0)

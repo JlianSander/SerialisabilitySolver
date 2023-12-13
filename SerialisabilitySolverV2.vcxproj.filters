@@ -57,7 +57,7 @@
     <ClCompile Include="LinkedSparseMatrix.h">
       <Filter>Header Files\Utilities</Filter>
     </ClCompile>
-    <ClCompile Include="ExternalSatSolver.c">
+    <ClCompile Include="SatSolver.c">
       <Filter>Source Files\SATSolver</Filter>
     </ClCompile>
     <ClCompile Include="LinkedSparseMatrix.c">
@@ -68,6 +68,9 @@
     </ClCompile>
     <ClCompile Include="Array.c">
       <Filter>Source Files\Utilities</Filter>
+    </ClCompile>
+    <ClCompile Include="ExternalSolver.cpp">
+      <Filter>Source Files\SATSolver</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -86,7 +89,7 @@
     <ClInclude Include="Actives.h">
       <Filter>Header Files\DataModel</Filter>
     </ClInclude>
-    <ClInclude Include="ExternalSatSolver.h">
+    <ClInclude Include="SatSolver.h">
       <Filter>Header Files\SATSolver</Filter>
     </ClInclude>
     <ClInclude Include="Encodings.h">
@@ -94,6 +97,9 @@
     </ClInclude>
     <ClInclude Include="Array.h">
       <Filter>Header Files\Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="ExternalSolver.h">
+      <Filter>Header Files\SATSolver</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

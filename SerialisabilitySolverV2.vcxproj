@@ -22,7 +22,8 @@
     <ClCompile Include="Actives.c" />
     <ClCompile Include="AF.c" />
     <ClCompile Include="Encodings.c" />
-    <ClCompile Include="ExternalSatSolver.c" />
+    <ClCompile Include="ExternalSolver.cpp" />
+    <ClCompile Include="SatSolver.c" />
     <ClCompile Include="LinkedSparseMatrix.c" />
     <ClCompile Include="LinkedSparseMatrix.h" />
     <ClCompile Include="Reduct.c" />
@@ -38,7 +39,8 @@
     </ClCompile>
     <ClInclude Include="Array.h" />
     <ClInclude Include="Encodings.h" />
-    <ClInclude Include="ExternalSatSolver.h" />
+    <ClInclude Include="ExternalSolver.h" />
+    <ClInclude Include="SatSolver.h" />
     <ClInclude Include="Reduct.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Matrix.h" />

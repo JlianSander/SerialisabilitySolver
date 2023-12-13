@@ -43,7 +43,7 @@ int main() {
 	print_active_arguments(reduct4);*/
 
 	SATSolver_t *solver = create_solver();
-	add_clauses_initial_set(solver, framework, actives);
+	add_clauses_nonempty_admissible_set(solver, framework, actives);
 	printf("\nEncoding SAT for basis: \n");
 	print_list_list_int64(solver->clauses);
 	printf("\n");
